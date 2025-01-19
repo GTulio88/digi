@@ -5,6 +5,7 @@
   "type": "module",
   "homepage": ".",
   "scripts": {
+    "start": "vite preview",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
@@ -14,8 +15,8 @@
     "@babel/preset-react": "^7.26.3",
     "axios": "^1.7.9",
     "prop-types": "^15.8.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
     "react-icons": "^5.4.0",
     "react-toastify": "^11.0.3"
   },
@@ -29,6 +30,6 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
-    "vite": "^6.0.5"
+    "vite": "^4.4.7"
   }
 }
