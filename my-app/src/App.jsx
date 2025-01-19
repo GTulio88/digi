@@ -111,6 +111,15 @@ function App() {
         ...prev,
         [name]: titleCaseValue,
       }));
+    } else if (name === "notes") {
+      // Coloca a primeira letra em maiúscula
+      const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+
+      // Atualiza o estado com o valor corrigido
+      setFormData((prev) => ({
+        ...prev,
+        [name]: capitalizedValue,
+      }));
     } else {
       // Para outros campos
       setFormData((prev) => ({
