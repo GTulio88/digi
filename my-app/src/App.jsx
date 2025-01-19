@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import TableComponent from "./components/TableComponent";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -16,6 +17,25 @@ function App() {
     notes: "",
   });
   const [submittedClients, setSubmittedClients] = useState([]);
+  const [selectedRow, setSelectedRow] = useState(null);
+
+  {
+    selectedRow && (
+      <Modal isOpen={!!selectedRow} onClose={() => setSelectedRow(null)}>
+        <h2>Detalhes do Registro</h2>
+        <p>
+          <strong>Data:</strong> {selectedRow.date}
+        </p>
+        <p>
+          <strong>Horas Trabalhadas:</strong> {selectedRow.hoursWorked}
+        </p>
+        <p>
+          <strong>ID do Cliente:</strong> {selectedRow.clientId}
+        </p>
+        <button onClick={() => setSelectedRow(null)}>Fechar</button>
+      </Modal>
+    );
+  }
 
   useEffect(() => {
     if (showTable) {
@@ -308,7 +328,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="header">
-        <h1 className="header-title">SERVIÇOS</h1>
+        <h1 className="header-title">DIGI INSTALAÇÕES</h1>
       </header>
       <div className="service-grid">
         <div className="service-item" onClick={() => setShowModal(true)}>
@@ -385,35 +405,28 @@ function App() {
         <div className="table-overlay">
           <div className="table-container">
             <h2 className="table-title">Dados Cadastrados</h2>
-            <table className="futuristic-table">
-              <thead>
-                <tr>
-                  <th>Data</th>
-                  <th>Horas</th>
-                  <th>ID Cliente</th>
-                  <th>Endereço</th>
-                  <th>Serviço</th>
-                  <th>Status</th>
-                  <th>Observação</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tableData.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.date}</td>
-                    <td>{row.hoursWorked}</td>
-                    <td>{row.clientId}</td>
-                    <td>{row.clientAddress}</td>
-                    <td>{row.serviceType}</td>
-                    <td>{row.status}</td>
-                    <td>{row.notes}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <TableComponent data={tableData} />
             <button className="btn-cancel" onClick={() => setShowTable(false)}>
               Fechar
             </button>
+          </div>
+        </div>
+      )}
+
+      {selectedRow && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2>Detalhes do Registro</h2>
+            <p>
+              <strong>Data:</strong> {selectedRow.date}
+            </p>
+            <p>
+              <strong>Horas Trabalhadas:</strong> {selectedRow.hoursWorked}
+            </p>
+            <p>
+              <strong>ID do Cliente:</strong> {selectedRow.clientId}
+            </p>
+            <button onClick={() => setSelectedRow(null)}>Fechar</button>
           </div>
         </div>
       )}

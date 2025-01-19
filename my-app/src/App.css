@@ -276,10 +276,90 @@ body {
   color: var(--text-color);
   text-shadow: 0 0 5px var(--icon-hover-color);
 }
-
+.futuristic-table tbody tr:hover {
+  background: #1f2630;
+  color: #fff;
+}
 @media (max-width: 768px) {
   .wizard-content input.hours-worked {
     width: 100%; /* Ajusta o campo para telas menores */
     max-width: 50px; /* Remove restrições de tamanho máximo */
+  }
+}
+
+/* Responsividade geral */
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .service-grid {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .service-item {
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+  }
+
+  .wizard-content label {
+    font-size: 0.9rem;
+  }
+
+  .wizard-content input,
+  .wizard-content select,
+  .wizard-content textarea {
+    font-size: 0.9rem;
+  }
+
+  .futuristic-table {
+    font-size: 0.9rem;
+  }
+
+  .futuristic-table th,
+  .futuristic-table td {
+    padding: 8px;
+  }
+
+  .pagination button {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+
+  .table-container {
+    padding: 10px;
+    width: 95%;
+  }
+}
+/* Responsividade para Modais */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 20px;
+    width: 95%;
+    max-width: 350px;
+  }
+
+  .close-modal {
+    font-size: 1.2rem;
+  }
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.futuristic-table {
+  min-width: 600px; /* Define largura mínima para evitar colapsos */
+}
+
+@media (max-width: 768px) {
+  .wizard-content input,
+  .wizard-content select,
+  .wizard-content textarea {
+    width: 100%;
+    padding: 8px;
   }
 }
