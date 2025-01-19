@@ -10,15 +10,15 @@ let dataStore = [
   {
     date: "2025-01-01",
     hoursWorked: 8,
-    clientId: "123",
-    clientAddress: "Rua A, 123",
-    serviceType: "Instalação",
-    status: "OK",
+    clientId: "1234567",
+    clientAddress: "Via Nizza, 123",
+    serviceType: "instalacao",
+    status: "ok",
     notes: "Sem problemas.",
   },
 ];
 
-// Endpoint para buscar dados
+// Endpoint para buscar dadoss
 app.get("/api/data", (req, res) => {
   res.status(200).json(dataStore);
 });
