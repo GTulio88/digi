@@ -126,6 +126,15 @@ body {
   -moz-appearance: textfield; /* Remove setas no Firefox */
 }
 
+.wizard-content input[name="clientId"] {
+  width: 100%; /* Ocupar o espaço disponível */
+  max-width: 140px; /* Limitar largura para caber 7 caracteres */
+  min-width: 100px; /* Garantir que não fique muito pequeno */
+  text-align: center; /* Centralizar o texto no input */
+  box-sizing: border-box; /* Incluir padding na largura */
+  margin: 0 auto; /* Centralizar o input horizontalmente */
+}
+
 .wizard-content input.hours-worked::-webkit-inner-spin-button,
 .wizard-content input.hours-worked::-webkit-outer-spin-button {
   -webkit-appearance: none; /* Remove setas no Chrome e Safari */

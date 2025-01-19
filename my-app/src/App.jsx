@@ -8,7 +8,7 @@ function App() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
-    hoursWorked: "8",
+    hoursWorked: "",
     clientId: "",
     clientAddress: "",
     serviceType: "",
@@ -39,21 +39,80 @@ function App() {
     const { name, value } = e.target;
 
     if (name === "hoursWorked") {
-      // Permitir apenas números decimais positivos com vírgula ou ponto
-      const formattedValue = value.replace(",", ".");
-      if (
-        !/^\d*\.?\d*$/.test(formattedValue) ||
-        parseFloat(formattedValue) > 12 ||
-        parseFloat(formattedValue) <= 0
-      ) {
-        return; // Rejeitar valores inválidos
+      // Permitir limpar o campo
+      if (value === "") {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: "",
+        }));
+        return;
       }
 
+      // Remove caracteres não numéricos
+      let formattedValue = value.replace(/\D/g, "");
+
+      // Limita a entrada a 4 caracteres
+      if (formattedValue.length > 4) return;
+
+      // Obtém as horas e minutos
+      let hours = parseInt(formattedValue.slice(0, -2)) || 0; // Tudo menos os últimos 2 dígitos
+      let minutes = parseInt(formattedValue.slice(-2)) || 0; // Últimos 2 dígitos
+
+      // Se ainda não há 2 dígitos para minutos, não validar
+      if (formattedValue.length < 3) {
+        setFormData((prev) => ({
+          ...prev,
+          [name]: formattedValue,
+        }));
+        return;
+      }
+
+      // Valida horas e minutos
+      if (hours > 12) {
+        alert("O número de horas não pode exceder 12.");
+        return;
+      }
+
+      if (minutes > 59) {
+        alert("Os minutos não podem exceder 59.");
+        return;
+      }
+
+      // Formata como HHhMM
+      let displayValue = `${hours}h${minutes.toString().padStart(2, "0")}`;
+
+      // Atualiza o estado do formulário
+      setFormData((prev) => ({
+        ...prev,
+        [name]: displayValue,
+      }));
+    } else if (name === "clientId") {
+      // Remove caracteres não numéricos
+      let formattedValue = value.replace(/\D/g, "");
+
+      // Limita a entrada a 7 caracteres
+      if (formattedValue.length > 7) return;
+
+      // Atualiza o estado do formulário
       setFormData((prev) => ({
         ...prev,
         [name]: formattedValue,
       }));
+    } else if (name === "clientAddress") {
+      // Transforma o texto para Title Case
+      const titleCaseValue = value
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+
+      // Atualiza o estado com o valor corrigido
+      setFormData((prev) => ({
+        ...prev,
+        [name]: titleCaseValue,
+      }));
     } else {
+      // Para outros campos
       setFormData((prev) => ({
         ...prev,
         [name]: value,
@@ -87,9 +146,20 @@ function App() {
     setShowModal(false);
   };
   const handleSubmit = async () => {
-    const hours = parseFloat(formData.hoursWorked);
-    if (hours <= 0 || hours > 12 || isNaN(hours)) {
-      alert("As horas trabalhadas devem ser um número entre 0.1 e 12.");
+    if (!formData.hoursWorked) {
+      alert("O campo de horas trabalhadas está vazio.");
+      return;
+    }
+
+    const [hours, minutes] = formData.hoursWorked.split("h").map(Number);
+
+    if (isNaN(hours) || isNaN(minutes)) {
+      alert("Formato de horas trabalhadas inválido.");
+      return;
+    }
+
+    if (hours > 12 || minutes > 59) {
+      alert("Os valores de horas ou minutos são inválidos.");
       return;
     }
 
@@ -107,7 +177,7 @@ function App() {
       setCurrentStep(1);
       setFormData({
         date: new Date().toISOString().split("T")[0],
-        hoursWorked: "8",
+        hoursWorked: "8h00",
         clientId: "",
         clientAddress: "",
         serviceType: "",
@@ -144,7 +214,7 @@ function App() {
                 value={formData.hoursWorked}
                 onChange={handleChange}
                 required
-                placeholder="Ex.: 8.5"
+                placeholder="Ex: 8h30"
               />
             </label>
           </>
@@ -159,6 +229,7 @@ function App() {
               value={formData.clientId}
               onChange={handleChange}
               required
+              placeholder="Ex.: 1234567"
             />
           </label>
         );
@@ -172,6 +243,7 @@ function App() {
               value={formData.clientAddress}
               onChange={handleChange}
               required
+              placeholder="Ex.: Rua das Flores"
             />
           </label>
         );
