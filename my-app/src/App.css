@@ -117,14 +117,19 @@ body {
   outline: none;
   font-size: 1rem;
 }
-
 .wizard-content input.hours-worked {
-  width: 60px; /* Largura ajustada para dois dígitos */
+  width: 100%;
+  max-width: 100px; /* Define largura máxima */
+  min-width: 60px; /* Define largura mínima */
   text-align: center;
+  box-sizing: border-box;
+  -moz-appearance: textfield; /* Remove setas no Firefox */
 }
 
-.wizard-content textarea {
-  resize: vertical;
+.wizard-content input.hours-worked::-webkit-inner-spin-button,
+.wizard-content input.hours-worked::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove setas no Chrome e Safari */
+  margin: 0;
 }
 
 .wizard-content input:focus,
@@ -261,4 +266,11 @@ body {
 .futuristic-table th {
   color: var(--text-color);
   text-shadow: 0 0 5px var(--icon-hover-color);
+}
+
+@media (max-width: 768px) {
+  .wizard-content input.hours-worked {
+    width: 100%; /* Ajusta o campo para telas menores */
+    max-width: 50px; /* Remove restrições de tamanho máximo */
+  }
 }

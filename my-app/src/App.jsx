@@ -35,18 +35,30 @@ function App() {
       console.error(error);
     }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === "hoursWorked" && (isNaN(value) || value < 8 || value > 12)) {
-      return;
-    }
+    if (name === "hoursWorked") {
+      // Permitir apenas números decimais positivos com vírgula ou ponto
+      const formattedValue = value.replace(",", ".");
+      if (
+        !/^\d*\.?\d*$/.test(formattedValue) ||
+        parseFloat(formattedValue) > 12 ||
+        parseFloat(formattedValue) <= 0
+      ) {
+        return; // Rejeitar valores inválidos
+      }
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+      setFormData((prev) => ({
+        ...prev,
+        [name]: formattedValue,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleNext = () => {
@@ -74,8 +86,13 @@ function App() {
     setCurrentStep(1);
     setShowModal(false);
   };
-
   const handleSubmit = async () => {
+    const hours = parseFloat(formData.hoursWorked);
+    if (hours <= 0 || hours > 12 || isNaN(hours)) {
+      alert("As horas trabalhadas devem ser um número entre 0.1 e 12.");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:5000/api/submit", {
         method: "POST",
@@ -121,14 +138,13 @@ function App() {
             <label>
               Horas trabalhadas:
               <input
-                type="number"
+                type="text"
                 name="hoursWorked"
                 className="hours-worked"
                 value={formData.hoursWorked}
                 onChange={handleChange}
-                min="8"
-                max="12"
                 required
+                placeholder="Ex.: 8.5"
               />
             </label>
           </>
