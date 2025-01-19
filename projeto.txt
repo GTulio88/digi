@@ -1,0 +1,5 @@
+git remote add origin git@github.com:GTulio88/digi.git
+
+
+git remote set-url origin git@github.com:GTulio88/digi.git
+
