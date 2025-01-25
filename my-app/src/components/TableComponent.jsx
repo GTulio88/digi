@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import {
   createColumnHelper,
   flexRender,
@@ -6,27 +6,71 @@ import {
   getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const TableComponent = ({ data }) => {
-  const columnHelper = createColumnHelper();
+const columnHelper = createColumnHelper();
+
+const TableComponent = ({ data, onEdit, onDelete }) => {
+  const [filter, setFilter] = useState("");
+
+  // UseMemo para memoizar os dados filtrados
+  const filteredData = useMemo(() => {
+    return data.filter(
+      (item) => item.date.includes(filter) || item.clientId.includes(filter)
+    );
+  }, [data, filter]); // Recalcula apenas quando `data` ou `filter` mudarem
 
   const columns = [
-    columnHelper.accessor("date", { header: "Data" }),
-    columnHelper.accessor("hoursWorked", { header: "Horas" }),
-    columnHelper.accessor("clientId", { header: "ID Cliente" }),
-    columnHelper.accessor("clientAddress", { header: "Endereço" }),
-    columnHelper.accessor("serviceType", { header: "Serviço" }),
-    columnHelper.accessor("status", { header: "Status" }),
-    columnHelper.accessor("notes", { header: "Observação" }),
+    columnHelper.accessor("date", {
+      header: "Data",
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor("hoursWorked", {
+      header: "Hs",
+    }),
+    columnHelper.accessor("clientId", {
+      header: "ID",
+    }),
+    columnHelper.accessor("clientAddress", {
+      header: "Endereço",
+    }),
+    columnHelper.accessor("serviceType", {
+      header: "Serviço",
+    }),
+    columnHelper.accessor("status", {
+      header: "Status",
+    }),
+    columnHelper.accessor("notes", {
+      header: "Observação",
+    }),
+    columnHelper.display({
+      header: "Ações",
+      cell: (info) => (
+        <div className="action-buttons">
+          <button
+            className="btn-edit"
+            onClick={() => onEdit(info.row.original)} // Chama handleEdit
+          >
+            Editar
+          </button>
+          <button
+            className="btn-delete"
+            onClick={() => onDelete(info.row.original)} // Chama handleDelete
+          >
+            Excluir
+          </button>
+        </div>
+      ),
+    }),
   ];
 
-  const [pagination, setPagination] = React.useState({
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
   const table = useReactTable({
-    data,
+    data: filteredData,
     columns,
     state: {
       pagination,
@@ -37,7 +81,15 @@ const TableComponent = ({ data }) => {
   });
 
   return (
-    <div>
+    <div className="table-responsive">
+      {/* Campo de Filtro */}
+      <input
+        type="text"
+        placeholder="Filtrar por data ou ID"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+        className="filter-input"
+      />
       <table className="futuristic-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -69,8 +121,9 @@ const TableComponent = ({ data }) => {
         <button
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
+          className="pagination-button"
         >
-          {"<"}
+          <FaArrowLeft />
         </button>
         <span>
           Página{" "}
@@ -82,8 +135,9 @@ const TableComponent = ({ data }) => {
         <button
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
+          className="pagination-button"
         >
-          {">"}
+          <FaArrowRight />
         </button>
       </div>
     </div>

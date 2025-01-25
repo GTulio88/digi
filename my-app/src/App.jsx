@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import TableComponent from "./components/TableComponent";
+const API_BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://seu-dominio.vercel.app" // Substitua pelo domínio real
+    : "http://localhost:5000";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -19,47 +23,39 @@ function App() {
   const [submittedClients, setSubmittedClients] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
 
-  {
-    selectedRow && (
-      <Modal isOpen={!!selectedRow} onClose={() => setSelectedRow(null)}>
-        <h2>Detalhes do Registro</h2>
-        <p>
-          <strong>Data:</strong> {selectedRow.date}
-        </p>
-        <p>
-          <strong>Horas Trabalhadas:</strong> {selectedRow.hoursWorked}
-        </p>
-        <p>
-          <strong>ID do Cliente:</strong> {selectedRow.clientId}
-        </p>
-        <button onClick={() => setSelectedRow(null)}>Fechar</button>
-      </Modal>
-    );
-  }
-
   useEffect(() => {
     if (showTable) {
       fetchData();
     }
   }, [showTable]);
 
+  const processTableData = (data) => {
+    return data.map((item) => ({
+      ...item,
+      date: item.date ? new Date(item.date).toISOString().split("T")[0] : "", // Normaliza o formato da data
+    }));
+  };
+
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/data");
+      const response = await fetch(`${API_BASE_URL}/api/data`);
       if (!response.ok) {
         throw new Error(`Erro ao buscar dados: ${response.status}`);
       }
-      const data = await response.json();
-      setTableData(data);
+      const rawData = await response.json();
+      console.log("Dados brutos:", rawData);
+      const processedData = processTableData(rawData);
+      console.log("Dados processados:", processedData);
+      setTableData(processedData);
     } catch (error) {
-      console.error(error);
+      console.error("Erro ao buscar dados:", error);
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "hoursWorked") {
-      // Permitir limpar o campo
       if (value === "") {
         setFormData((prev) => ({
           ...prev,
@@ -68,17 +64,13 @@ function App() {
         return;
       }
 
-      // Remove caracteres não numéricos
       let formattedValue = value.replace(/\D/g, "");
 
-      // Limita a entrada a 4 caracteres
       if (formattedValue.length > 4) return;
 
-      // Obtém as horas e minutos
-      let hours = parseInt(formattedValue.slice(0, -2)) || 0; // Tudo menos os últimos 2 dígitos
-      let minutes = parseInt(formattedValue.slice(-2)) || 0; // Últimos 2 dígitos
+      let hours = parseInt(formattedValue.slice(0, -2)) || 0;
+      let minutes = parseInt(formattedValue.slice(-2)) || 0;
 
-      // Se ainda não há 2 dígitos para minutos, não validar
       if (formattedValue.length < 3) {
         setFormData((prev) => ({
           ...prev,
@@ -87,7 +79,6 @@ function App() {
         return;
       }
 
-      // Valida horas e minutos
       if (hours > 12) {
         alert("O número de horas não pode exceder 12.");
         return;
@@ -98,61 +89,118 @@ function App() {
         return;
       }
 
-      // Formata como HHhMM
       let displayValue = `${hours}h${minutes.toString().padStart(2, "0")}`;
 
-      // Atualiza o estado do formulário
       setFormData((prev) => ({
         ...prev,
         [name]: displayValue,
       }));
     } else if (name === "clientId") {
-      // Remove caracteres não numéricos
       let formattedValue = value.replace(/\D/g, "");
-
-      // Limita a entrada a 7 caracteres
       if (formattedValue.length > 7) return;
-
-      // Atualiza o estado do formulário
       setFormData((prev) => ({
         ...prev,
         [name]: formattedValue,
       }));
     } else if (name === "clientAddress") {
-      // Transforma o texto para Title Case
       const titleCaseValue = value
         .toLowerCase()
         .split(" ")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
 
-      // Atualiza o estado com o valor corrigido
       setFormData((prev) => ({
         ...prev,
         [name]: titleCaseValue,
       }));
     } else if (name === "notes") {
-      // Coloca a primeira letra em maiúscula
       const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
-
-      // Atualiza o estado com o valor corrigido
       setFormData((prev) => ({
         ...prev,
         [name]: capitalizedValue,
       }));
     } else {
-      // Para outros campos
       setFormData((prev) => ({
         ...prev,
         [name]: value,
       }));
     }
   };
+  const handleEdit = (row) => {
+    setFormData(row); // Preenche os dados no formulário
+    setShowModal(true); // Abre o modal para edição
+  };
+  const handleDelete = async (row) => {
+    const confirmDelete = window.confirm(
+      `Tem certeza que deseja excluir o registro com ID ${row.clientId}?`
+    );
+
+    if (confirmDelete) {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/delete/${String(row.clientId)}`, // Força o tipo para string
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Erro ao excluir o registro.");
+        }
+
+        // Atualiza o estado após a exclusão
+        setTableData((prevData) =>
+          prevData.filter((item) => item.clientId !== row.clientId)
+        );
+
+        alert("Registro excluído com sucesso!");
+      } catch (error) {
+        console.error("Erro ao excluir registro:", error);
+        alert("Erro ao excluir registro.");
+      }
+    }
+  };
+
+  const handleSaveEdit = async () => {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/api/update/${formData.clientId}`, // Certifique-se de que clientId é uma string
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar o registro.");
+      }
+
+      // Atualiza o estado com os dados editados
+      setTableData((prevData) =>
+        prevData.map((item) =>
+          item.clientId === formData.clientId ? formData : item
+        )
+      );
+
+      alert("Registro atualizado com sucesso!");
+      setShowModal(false);
+    } catch (error) {
+      console.error("Erro ao atualizar registro:", error);
+      alert("Erro ao atualizar registro.");
+    }
+  };
 
   const handleNext = () => {
     if (currentStep < 6) setCurrentStep(currentStep + 1);
   };
-
+  const formatDate = (date) => {
+    if (!date || typeof date !== "string") {
+      return "Data inválida"; // Retorne um valor padrão ou mensagem de erro
+    }
+    const [year, month, day] = date.split("-");
+    return `${day}/${month}/${year.slice(-2)}`;
+  };
   const handleBack = () => {
     if (currentStep > 1) setCurrentStep(currentStep - 1);
   };
@@ -174,12 +222,8 @@ function App() {
     setCurrentStep(1);
     setShowModal(false);
   };
-  const handleSubmit = async () => {
-    if (!formData.hoursWorked) {
-      alert("O campo de horas trabalhadas está vazio.");
-      return;
-    }
 
+  const validateAndSubmit = async () => {
     const [hours, minutes] = formData.hoursWorked.split("h").map(Number);
 
     if (isNaN(hours) || isNaN(minutes)) {
@@ -193,20 +237,24 @@ function App() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/submit", {
+      const response = await fetch(`${API_BASE_URL}/api/submit`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ clients: [...submittedClients, formData] }),
       });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao enviar dados: ${response.status}`);
+      }
+
       const data = await response.json();
       console.log("Dados enviados com sucesso:", data);
+
       setShowModal(false);
       setCurrentStep(1);
       setFormData({
         date: new Date().toISOString().split("T")[0],
-        hoursWorked: "8h00",
+        hoursWorked: "",
         clientId: "",
         clientAddress: "",
         serviceType: "",
@@ -385,15 +433,24 @@ function App() {
                     className="btn-add"
                     onClick={handleAddAnother}
                   >
-                    Add Cliente
+                    Adicionar
                   </button>
                   <button
                     type="button"
                     className="btn-submit"
-                    onClick={handleSubmit}
+                    onClick={validateAndSubmit}
                   >
                     Concluir
                   </button>
+                  {selectedRow && (
+                    <button
+                      type="button"
+                      className="btn-submit"
+                      onClick={handleSaveEdit}
+                    >
+                      Salvar Alterações
+                    </button>
+                  )}
                 </>
               )}
             </div>
@@ -405,7 +462,11 @@ function App() {
         <div className="table-overlay">
           <div className="table-container">
             <h2 className="table-title">Dados Cadastrados</h2>
-            <TableComponent data={tableData} />
+            <TableComponent
+              data={tableData}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
             <button className="btn-cancel" onClick={() => setShowTable(false)}>
               Fechar
             </button>
@@ -418,10 +479,10 @@ function App() {
           <div className="modal">
             <h2>Detalhes do Registro</h2>
             <p>
-              <strong>Data:</strong> {selectedRow.date}
+              <strong>Data:</strong> {formatDate(selectedRow.date)}
             </p>
             <p>
-              <strong>Horas Trabalhadas:</strong> {selectedRow.hoursWorked}
+              <strong>Horas:</strong> {selectedRow.hoursWorked}
             </p>
             <p>
               <strong>ID do Cliente:</strong> {selectedRow.clientId}
