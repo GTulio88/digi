@@ -1,84 +1,124 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
 const bodyParser = require("body-parser");
+const { Pool } = require("pg");
+
+const app = express();
+
+// Configurações para o PostgreSQL
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL, // URL do banco no Render
+  ssl: { rejectUnauthorized: false }, // Necessário para conexões seguras
+});
+
+// Testa a conexão com o banco de dados
+pool.connect((err) => {
+  if (err) {
+    console.error("Erro ao conectar ao PostgreSQL:", err);
+  } else {
+    console.log("Conectado ao PostgreSQL!");
+  }
+});
 
 app.use(cors()); // Permite requisições de qualquer origem
 app.use(bodyParser.json()); // Middleware para interpretar JSON no corpo das requisições
 
-// Banco de dados em memória
-let dataStore = [
-  {
-    date: "2025-01-01",
-    hoursWorked: 8,
-    clientId: "1234567",
-    clientAddress: "Via Nizza, 123",
-    serviceType: "instalacao",
-    status: "ok",
-    notes: "Sem problemas.",
-  },
-  {
-    date: "2024-02-12",
-    hoursWorked: 10,
-    clientId: "4035168",
-    clientAddress: "Viaduto Nascimento, 31",
-    serviceType: "instalacao",
-    status: "ok",
-    notes: "Concluído com sucesso.",
-  },
-  // ... outros objetos
-];
-
 // Endpoint para buscar todos os dados
-app.get("/api/data", (req, res) => {
-  res.status(200).json(dataStore);
+app.get("/api/data", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM clients");
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error("Erro ao buscar dados:", error);
+    res.status(500).json({ error: "Erro ao buscar dados" });
+  }
 });
 
 // Endpoint para salvar novos dados
-app.post("/api/submit", (req, res) => {
+app.post("/api/submit", async (req, res) => {
   const { clients } = req.body;
 
   if (!Array.isArray(clients)) {
     return res.status(400).json({ error: "Formato de dados inválido" });
   }
 
-  dataStore = [...dataStore, ...clients];
-  res.status(200).json({ message: "Dados salvos com sucesso" });
+  try {
+    for (const client of clients) {
+      await pool.query(
+        `INSERT INTO clients (date, hoursWorked, clientId, clientAddress, serviceType, status, notes)
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          client.date,
+          client.hoursWorked,
+          client.clientId,
+          client.clientAddress,
+          client.serviceType,
+          client.status,
+          client.notes,
+        ]
+      );
+    }
+    res.status(200).json({ message: "Dados salvos com sucesso" });
+  } catch (error) {
+    console.error("Erro ao salvar dados:", error);
+    res.status(500).json({ error: "Erro ao salvar dados" });
+  }
 });
-app.delete("/api/delete/:clientId", (req, res) => {
+
+// Endpoint para excluir um registro pelo clientId
+app.delete("/api/delete/:clientId", async (req, res) => {
   const { clientId } = req.params;
 
-  // Log para verificar o valor do clientId recebido
-  console.log("Client ID recebido:", clientId);
+  try {
+    const result = await pool.query("DELETE FROM clients WHERE clientId = $1", [
+      clientId,
+    ]);
 
-  const index = dataStore.findIndex((item) => item.clientId === clientId);
-  if (index !== -1) {
-    dataStore.splice(index, 1); // Remove o item do array
-    res.status(200).json({ message: "Registro excluído com sucesso." });
-  } else {
-    res.status(404).json({ message: "Registro não encontrado." });
+    if (result.rowCount > 0) {
+      res.status(200).json({ message: "Registro excluído com sucesso." });
+    } else {
+      res.status(404).json({ message: "Registro não encontrado." });
+    }
+  } catch (error) {
+    console.error("Erro ao excluir registro:", error);
+    res.status(500).json({ error: "Erro ao excluir registro" });
   }
 });
 
 // Endpoint para atualizar um registro pelo clientId
-app.put("/api/update/:clientId", (req, res) => {
-  const { clientId } = req.params; // ID original do registro
-  const updatedData = req.body; // Dados atualizados, incluindo um novo clientId
+app.put("/api/update/:clientId", async (req, res) => {
+  const { clientId } = req.params;
+  const updatedData = req.body;
 
-  const index = dataStore.findIndex((item) => item.clientId === clientId);
-  if (index !== -1) {
-    // Permite atualizar o clientId
-    dataStore[index] = { ...dataStore[index], ...updatedData };
-    res.status(200).json({
-      message: "Registro atualizado com sucesso.",
-      data: dataStore[index],
-    });
-  } else {
-    res.status(404).json({ message: "Registro não encontrado." });
+  try {
+    const result = await pool.query(
+      `UPDATE clients
+       SET date = $1, hoursWorked = $2, clientAddress = $3, serviceType = $4, status = $5, notes = $6
+       WHERE clientId = $7`,
+      [
+        updatedData.date,
+        updatedData.hoursWorked,
+        updatedData.clientAddress,
+        updatedData.serviceType,
+        updatedData.status,
+        updatedData.notes,
+        clientId,
+      ]
+    );
+
+    if (result.rowCount > 0) {
+      res.status(200).json({ message: "Registro atualizado com sucesso." });
+    } else {
+      res.status(404).json({ message: "Registro não encontrado." });
+    }
+  } catch (error) {
+    console.error("Erro ao atualizar registro:", error);
+    res.status(500).json({ error: "Erro ao atualizar registro" });
   }
 });
+
 // Inicia o servidor na porta especificada
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
