@@ -20,7 +20,12 @@ pool.connect((err) => {
   }
 });
 
-app.use(cors()); // Permite requisições de qualquer origem
+app.use(
+  cors({
+    origin: "https://digi-uckg.onrender.com/", // Substitua pela URL do frontend
+  })
+);
+
 app.use(bodyParser.json()); // Middleware para interpretar JSON no corpo das requisições
 
 // Endpoint para buscar todos os dados
