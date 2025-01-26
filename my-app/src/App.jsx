@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import TableComponent from "./components/TableComponent";
 const API_BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? "https://seu-dominio.vercel.app" // Substitua pelo domínio real
-    : "http://localhost:5000";
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
 
 function App() {
   const [showModal, setShowModal] = useState(false);

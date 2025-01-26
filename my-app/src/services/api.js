@@ -1,11 +1,10 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000", // URL base da API
-  timeout: 10000, // Timeout de 10 segundos
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // Defina no Vercel
+  timeout: 10000,
   headers: {
-    "Content-Type": "application/json", // Define o tipo de conteúdo como JSON
+    "Content-Type": "application/json",
   },
 });
-
 export default api;
