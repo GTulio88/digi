@@ -8,8 +8,10 @@ const API_BASE_URL =
 
 function App() {
   const [showModal, setShowModal] = useState(false);
+  const [showModalEdit, setShowModalEdit] = useState(false); // Controle do modal de ediçã
   const [showTable, setShowTable] = useState(false);
   const [tableData, setTableData] = useState([]);
+  const [originalClientId, setOriginalClientId] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     date: new Date().toISOString().split("T")[0],
@@ -96,11 +98,14 @@ function App() {
         [name]: displayValue,
       }));
     } else if (name === "clientId") {
-      let formattedValue = value.replace(/\D/g, "");
-      if (formattedValue.length > 7) return;
+      let formattedValue = value.replace(/\D/g, ""); // Remove caracteres não numéricos
+      if (formattedValue.length > 7) {
+        alert("O ID do cliente deve ter no máximo 7 dígitos."); // Exibe alerta
+        formattedValue = formattedValue.slice(0, 7); // Trunca para 7 dígitos
+      }
       setFormData((prev) => ({
         ...prev,
-        [name]: formattedValue,
+        [name]: formattedValue, // Atualiza o valor truncado
       }));
     } else if (name === "clientAddress") {
       const titleCaseValue = value
@@ -126,9 +131,11 @@ function App() {
       }));
     }
   };
+
   const handleEdit = (row) => {
-    setFormData(row); // Preenche os dados no formulário
-    setShowModal(true); // Abre o modal para edição
+    setFormData(row); // Preenche o formulário com os dados da linha
+    setOriginalClientId(row.clientId); // Armazena o ID original
+    setShowModalEdit(true); // Abre o modal de edição
   };
   const handleDelete = async (row) => {
     const confirmDelete = window.confirm(
@@ -164,11 +171,11 @@ function App() {
   const handleSaveEdit = async () => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/update/${formData.clientId}`, // Certifique-se de que clientId é uma string
+        `${API_BASE_URL}/api/update/${originalClientId}`, // Use o clientId original
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(formData), // Envia os dados atualizados
         }
       );
 
@@ -176,15 +183,17 @@ function App() {
         throw new Error("Erro ao atualizar o registro.");
       }
 
-      // Atualiza o estado com os dados editados
+      const updatedRecord = await response.json();
+
+      // Atualiza a tabela com os dados editados
       setTableData((prevData) =>
         prevData.map((item) =>
-          item.clientId === formData.clientId ? formData : item
+          item.clientId === originalClientId ? formData : item
         )
       );
 
       alert("Registro atualizado com sucesso!");
-      setShowModal(false);
+      setShowModalEdit(false); // Fecha o modal de edição
     } catch (error) {
       console.error("Erro ao atualizar registro:", error);
       alert("Erro ao atualizar registro.");
@@ -192,6 +201,26 @@ function App() {
   };
 
   const handleNext = () => {
+    // Adiciona a lógica para autocompletar o campo "Horas trabalhadas"
+    if (currentStep === 1 && formData.hoursWorked) {
+      let hoursWorked = formData.hoursWorked.trim();
+
+      // Se o valor for apenas um número (exemplo: '8')
+      if (/^\d+$/.test(hoursWorked)) {
+        hoursWorked = `${hoursWorked}h00`; // Adiciona 'h00'
+        setFormData((prev) => ({
+          ...prev,
+          hoursWorked,
+        }));
+      }
+    }
+
+    // Lógica existente no método handleNext
+    if (currentStep === 2 && !formData.clientId.trim()) {
+      alert("Por favor, insira um ID de cliente válido.");
+      return;
+    }
+
     if (currentStep < 6) setCurrentStep(currentStep + 1);
   };
   const formatDate = (date) => {
@@ -301,7 +330,7 @@ function App() {
           <label>
             ID do Cliente:
             <input
-              type="text"
+              type="number"
               name="clientId"
               value={formData.clientId}
               onChange={handleChange}
@@ -488,6 +517,101 @@ function App() {
               <strong>ID do Cliente:</strong> {selectedRow.clientId}
             </p>
             <button onClick={() => setSelectedRow(null)}>Fechar</button>
+          </div>
+        </div>
+      )}
+      {showModalEdit && (
+        <div className="modalEdit-overlay">
+          <div className="modalEdit">
+            <h2 className="modalEdit-title">Editar Registro</h2>
+            <div className="modalEdit-content">
+              <label>
+                Data:
+                <input
+                  type="date"
+                  name="date"
+                  value={formData.date || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Horas Trabalhadas:
+                <input
+                  type="text"
+                  name="hoursWorked"
+                  value={formData.hoursWorked || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                ID do Cliente:
+                <input
+                  type="text"
+                  name="clientId"
+                  value={formData.clientId || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Endereço do Cliente:
+                <input
+                  type="text"
+                  name="clientAddress"
+                  value={formData.clientAddress || ""}
+                  onChange={handleChange}
+                  required
+                />
+              </label>
+              <label>
+                Tipo de Serviço:
+                <select
+                  name="serviceType"
+                  value={formData.serviceType || ""}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  <option value="instalacao">Instalação</option>
+                  <option value="reparo">Reparo</option>
+                  <option value="upgrade">Upgrade</option>
+                </select>
+              </label>
+              <label>
+                Status:
+                <select
+                  name="status"
+                  value={formData.status || ""}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Selecione</option>
+                  <option value="ok">OK</option>
+                  <option value="nok">NOK</option>
+                </select>
+              </label>
+              <label>
+                Observações:
+                <textarea
+                  name="notes"
+                  value={formData.notes || ""}
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+            <div className="modalEdit-buttons">
+              <button
+                className="btn-cancel"
+                onClick={() => setShowModalEdit(false)}
+              >
+                Cancelar
+              </button>
+              <button className="btn-submit" onClick={handleSaveEdit}>
+                Salvar Alterações
+              </button>
+            </div>
           </div>
         </div>
       )}

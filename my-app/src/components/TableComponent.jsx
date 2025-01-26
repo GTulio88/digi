@@ -13,17 +13,71 @@ const columnHelper = createColumnHelper();
 const TableComponent = ({ data, onEdit, onDelete }) => {
   const [filter, setFilter] = useState("");
 
-  // UseMemo para memoizar os dados filtrados
   const filteredData = useMemo(() => {
-    return data.filter(
-      (item) => item.date.includes(filter) || item.clientId.includes(filter)
-    );
-  }, [data, filter]); // Recalcula apenas quando `data` ou `filter` mudarem
+    // Ordenar os dados por data decrescente
+    const sortedData = [...data].sort((a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateB - dateA; // Decrescente
+    });
+
+    // Mapeamento de meses para facilitar a busca
+    const monthsMap = [
+      "jan",
+      "fev",
+      "mar",
+      "abr",
+      "mai",
+      "jun",
+      "jul",
+      "ago",
+      "set",
+      "out",
+      "nov",
+      "dez",
+    ];
+
+    return sortedData.filter((item) => {
+      const [year, month] = item.date.split("-"); // Extrai ano e mês do formato yyyy-mm-dd
+      const filterLower = filter.toLowerCase();
+
+      // Encontra o nome do mês a partir do número
+      const monthName = monthsMap[parseInt(month, 10) - 1];
+
+      return (
+        item.date.includes(filter) || // Filtra por data completa
+        item.clientId.includes(filter) || // Filtra por ID do cliente
+        (monthName && monthName.startsWith(filterLower)) // Filtra por início do nome do mês
+      );
+    });
+  }, [data, filter]);
+  const months = [
+    "Jan",
+    "Fev",
+    "Mar",
+    "Abr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Ago",
+    "Set",
+    "Out",
+    "Nov",
+    "Dez",
+  ];
 
   const columns = [
     columnHelper.accessor("date", {
       header: "Data",
-      cell: (info) => info.getValue(),
+      cell: (info) => {
+        const date = info.getValue();
+        if (date) {
+          const [year, month, day] = date.split("-");
+          const monthName = months[parseInt(month, 10) - 1];
+          return `${day}/${monthName}/${year.slice(-2)}`;
+        }
+        return "Data inválida";
+      },
     }),
     columnHelper.accessor("hoursWorked", {
       header: "Hs",
@@ -63,7 +117,6 @@ const TableComponent = ({ data, onEdit, onDelete }) => {
       ),
     }),
   ];
-
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,

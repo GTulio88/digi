@@ -288,22 +288,20 @@ body {
 }
 
 .futuristic-table tbody tr:nth-child(odd) {
-  background: #161b22;
+  background-color: #2d3746; /* Cor mais forte */
+  color: #ffffff; /* Ajuste da cor do texto para contraste */
+}
+
+.futuristic-table tbody tr:nth-child(even) {
+  background-color: #2c333a; /* Cor mais fraca */
+  color: #ffffff; /* Ajuste da cor do texto para contraste */
 }
 
 .futuristic-table tbody tr:hover {
-  background: var(--icon-hover-color);
-  color: #fff;
+  background-color: #00d4ff; /* Cor de destaque ao passar o mouse */
+  color: #000000; /* Ajuste do texto ao passar o mouse */
 }
 
-.futuristic-table th {
-  color: var(--text-color);
-  text-shadow: 0 0 5px var(--icon-hover-color);
-}
-.futuristic-table tbody tr:hover {
-  background: #1f2630;
-  color: #fff;
-}
 @media (max-width: 768px) {
   .wizard-content input.hours-worked {
     width: 100%; /* Ajusta o campo para telas menores */
@@ -572,4 +570,127 @@ body {
 
 .btn-delete:hover {
   background-color: #ff4d4f;
+}
+
+.modalEdit-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000; /* Certifica que o modal fique acima de tudo */
+}
+
+.modalEdit {
+  background: var(--modal-bg-color, #1f2630);
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px; /* Largura máxima para telas grandes */
+  max-height: 90%; /* Altura máxima para evitar ultrapassar a tela */
+  overflow-y: auto; /* Permite rolagem se o conteúdo exceder a altura */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  color: var(--text-color, #ffffff);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modalEdit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modalEdit-content label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 1rem;
+  color: var(--text-color, #ffffff);
+}
+
+.modalEdit-content input,
+.modalEdit-content select,
+.modalEdit-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid var(--modal-border-color, #444);
+  border-radius: 5px;
+  background: #0d1117;
+  color: #ffffff;
+}
+
+.modalEdit-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto; /* Empurra os botões para o final do modal */
+}
+
+.modalEdit-buttons .btn-cancel,
+.modalEdit-buttons .btn-submit {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  color: white;
+}
+
+.modalEdit-buttons .btn-cancel {
+  background-color: #d9363e;
+}
+
+.modalEdit-buttons .btn-cancel:hover {
+  background-color: #ff7875;
+}
+
+.modalEdit-buttons .btn-submit {
+  background-color: #52c41a;
+}
+
+.modalEdit-buttons .btn-submit:hover {
+  background-color: #73d13d;
+}
+
+/* Ajuste de Responsividade */
+@media (max-width: 768px) {
+  .modalEdit {
+    width: 95%; /* O modal ocupa quase toda a largura da tela em dispositivos pequenos */
+    padding: 15px;
+  }
+
+  .modalEdit-content label {
+    font-size: 0.9rem;
+  }
+
+  .modalEdit-content input,
+  .modalEdit-content select,
+  .modalEdit-content textarea {
+    font-size: 0.9rem;
+  }
+
+  .modalEdit-buttons {
+    flex-direction: column; /* Botões empilhados em telas menores */
+    gap: 10px;
+  }
+}
+
+/* Ocultar os spinners no Chrome, Edge e Safari */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Ocultar os spinners no Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

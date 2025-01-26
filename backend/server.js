@@ -62,12 +62,13 @@ app.delete("/api/delete/:clientId", (req, res) => {
 
 // Endpoint para atualizar um registro pelo clientId
 app.put("/api/update/:clientId", (req, res) => {
-  const { clientId } = req.params;
-  const updatedData = req.body;
+  const { clientId } = req.params; // ID original do registro
+  const updatedData = req.body; // Dados atualizados, incluindo um novo clientId
 
   const index = dataStore.findIndex((item) => item.clientId === clientId);
   if (index !== -1) {
-    dataStore[index] = { ...dataStore[index], ...updatedData }; // Atualiza os dados existentes
+    // Permite atualizar o clientId
+    dataStore[index] = { ...dataStore[index], ...updatedData };
     res.status(200).json({
       message: "Registro atualizado com sucesso.",
       data: dataStore[index],
@@ -76,7 +77,6 @@ app.put("/api/update/:clientId", (req, res) => {
     res.status(404).json({ message: "Registro não encontrado." });
   }
 });
-
 // Inicia o servidor na porta especificada
 const PORT = 5000;
 app.listen(PORT, () => {
