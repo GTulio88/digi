@@ -128,3 +128,13 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+const path = require("path");
+
+// Servir arquivos estáticos do frontend
+app.use(express.static(path.join(__dirname, "frontend"))); // Substitua "frontend" pelo caminho da sua build
+
+// Redirecionar todas as rotas para o index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+});
