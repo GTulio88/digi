@@ -250,12 +250,12 @@ function App() {
     setShowModal(false);
   };
 
-  const validateAndSubmit = async () => {
+  async function validateAndSubmit(formData) {
     try {
       const response = await fetch(`${API_BASE_URL}/api/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clients: [formData] }),
+        body: JSON.stringify({ clients: [formData] }), // Envia os dados do formulário
       });
 
       if (!response.ok) {
@@ -263,11 +263,25 @@ function App() {
       }
 
       const data = await response.json();
-      console.log("Dados enviados com sucesso:", data);
+      console.log("✅ Dados enviados com sucesso:", data);
+      alert("Dados cadastrados com sucesso!");
+
+      // Limpa o formulário após o envio bem-sucedido
+      setFormData({
+        date: "",
+        hoursWorked: "",
+        clientId: "",
+        clientAddress: "",
+        serviceType: "",
+        status: "",
+        notes: "",
+      });
     } catch (error) {
-      console.error("Erro ao enviar dados:", error);
+      console.error("❌ Erro ao enviar dados:", error);
+      alert("Erro ao enviar os dados. Verifique o console para mais detalhes.");
     }
-  };
+  }
+
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
