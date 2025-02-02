@@ -1,39 +1,46 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const { Pool } = require("pg");
-require("dotenv").config();
+const mongoose = require("mongoose");
 
 const app = express();
 
-// Configurações para o PostgreSQL
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL, // URL do banco no Render
-  ssl: { rejectUnauthorized: false }, // Necessário para conexões seguras
+// Conexão com o MongoDB Atlas
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("✅ Conectado ao MongoDB Atlas!"))
+  .catch((err) => console.error("❌ Erro ao conectar ao MongoDB:", err));
+
+// Definição do Schema para clientes
+const clientSchema = new mongoose.Schema({
+  date: String,
+  hoursWorked: String,
+  clientId: String,
+  clientAddress: String,
+  serviceType: String,
+  status: String,
+  notes: String,
 });
 
-// Testa a conexão com o banco de dados
-pool.connect((err) => {
-  if (err) {
-    console.error("Erro ao conectar ao PostgreSQL:", err);
-  } else {
-    console.log("Conectado ao PostgreSQL!");
-  }
-});
+const Client = mongoose.model("Client", clientSchema);
 
 app.use(
   cors({
-    origin: "https://digi-uckg.onrender.com/", // Substitua pela URL do frontend
+    origin: [
+      "https://digi-uckg.onrender.com",
+      "http://localhost:5173",
+      "https://digi-delta-sooty.vercel.app",
+    ], // Adiciona o localhost
   })
 );
-
 app.use(bodyParser.json()); // Middleware para interpretar JSON no corpo das requisições
 
 // Endpoint para buscar todos os dados
 app.get("/api/data", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM clients");
-    res.status(200).json(result.rows);
+    const clients = await Client.find();
+    res.status(200).json(clients);
   } catch (error) {
     console.error("Erro ao buscar dados:", error);
     res.status(500).json({ error: "Erro ao buscar dados" });
@@ -43,27 +50,14 @@ app.get("/api/data", async (req, res) => {
 // Endpoint para salvar novos dados
 app.post("/api/submit", async (req, res) => {
   const { clients } = req.body;
+  console.log("Dados recebidos do frontend:", clients); // Adiciona este log
 
   if (!Array.isArray(clients)) {
     return res.status(400).json({ error: "Formato de dados inválido" });
   }
 
   try {
-    for (const client of clients) {
-      await pool.query(
-        `INSERT INTO clients (date, hoursWorked, clientId, clientAddress, serviceType, status, notes)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-        [
-          client.date,
-          client.hoursWorked,
-          client.clientId,
-          client.clientAddress,
-          client.serviceType,
-          client.status,
-          client.notes,
-        ]
-      );
-    }
+    await Client.insertMany(clients);
     res.status(200).json({ message: "Dados salvos com sucesso" });
   } catch (error) {
     console.error("Erro ao salvar dados:", error);
@@ -76,11 +70,9 @@ app.delete("/api/delete/:clientId", async (req, res) => {
   const { clientId } = req.params;
 
   try {
-    const result = await pool.query("DELETE FROM clients WHERE clientId = $1", [
-      clientId,
-    ]);
+    const result = await Client.deleteOne({ clientId });
 
-    if (result.rowCount > 0) {
+    if (result.deletedCount > 0) {
       res.status(200).json({ message: "Registro excluído com sucesso." });
     } else {
       res.status(404).json({ message: "Registro não encontrado." });
@@ -97,22 +89,9 @@ app.put("/api/update/:clientId", async (req, res) => {
   const updatedData = req.body;
 
   try {
-    const result = await pool.query(
-      `UPDATE clients
-       SET date = $1, hoursWorked = $2, clientAddress = $3, serviceType = $4, status = $5, notes = $6
-       WHERE clientId = $7`,
-      [
-        updatedData.date,
-        updatedData.hoursWorked,
-        updatedData.clientAddress,
-        updatedData.serviceType,
-        updatedData.status,
-        updatedData.notes,
-        clientId,
-      ]
-    );
+    const result = await Client.updateOne({ clientId }, { $set: updatedData });
 
-    if (result.rowCount > 0) {
+    if (result.modifiedCount > 0) {
       res.status(200).json({ message: "Registro atualizado com sucesso." });
     } else {
       res.status(404).json({ message: "Registro não encontrado." });
