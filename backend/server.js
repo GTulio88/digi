@@ -37,18 +37,24 @@ app.use((req, res, next) => {
 app.get("/api/data", async (req, res) => {
   try {
     console.log("📥 Requisição recebida em /api/data");
+
+    // Testando a conexão com o MongoDB
     const clients = await Client.find();
+    console.log("✅ Dados recuperados do MongoDB:", clients); // Novo log para ver o resultado da consulta
+
     res.status(200).json(clients);
   } catch (error) {
-    console.error("❌ Erro ao buscar dados:", error);
+    console.error("❌ Erro ao buscar dados do MongoDB:", error);
+
     res.status(500).json({
       success: false,
-      message: "Erro interno ao buscar dados",
-      error: error.message,
-      stack: error.stack,
+      message: "Something went wrong!",
+      error: error.message, // Mostra o erro real
+      stack: error.stack, // Stack trace para debug
     });
   }
 });
+
 // Salvar novos dados
 app.post("/api/submit", async (req, res) => {
   try {
