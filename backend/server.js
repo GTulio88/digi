@@ -4,11 +4,11 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
-const Client = require("./Client"); // ✅ Importação correta
+const Client = require("./Client");
 
 const app = express();
 
-// ✅ Conexão com o MongoDB Atlas
+// Conexão com o MongoDB Atlas
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("✅ Conectado ao MongoDB Atlas!"))
@@ -17,7 +17,7 @@ mongoose
 app.use(cors());
 app.use(bodyParser.json());
 
-// ✅ ROTAS DA API (DEFINIDAS ANTES DO FRONTEND)
+// Rotas da API
 app.get("/api/data", async (req, res) => {
   try {
     const clients = await Client.find();
@@ -41,14 +41,13 @@ app.post("/api/submit", async (req, res) => {
   }
 });
 
-// ✅ Servir o frontend da pasta build
 app.use(express.static(path.join(__dirname, "../my-app/build")));
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../my-app/build", "index.html"));
 });
 
-// ✅ Iniciar o Servidor
+// Iniciar o Servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);

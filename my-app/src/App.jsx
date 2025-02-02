@@ -453,7 +453,7 @@ function App() {
                   <button
                     type="button"
                     className="btn-submit"
-                    onClick={validateAndSubmit}
+                    onClick={() => validateAndSubmit(formData)} // Correção aqui
                   >
                     Concluir
                   </button>
