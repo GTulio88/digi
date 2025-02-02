@@ -42,12 +42,12 @@ app.post("/api/submit", (req, res) => {
 });
 
 // ✅ Servir o frontend após as rotas da API
-app.use(express.static(path.join(__dirname, "frontend"))); // Certifique-se que o build está na pasta correta
+app.use(express.static(path.join(__dirname, "../my-app"))); // Certifique-se que o build está na pasta correta
 
 // 🚨 Captura de todas as outras rotas (apenas se não for API)
 app.get("*", (req, res) => {
   console.log("🚨 Redirecionamento para o index.html");
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+  res.sendFile(path.join(__dirname, "../my-app", "index.html"));
 });
 
 // ✅ Iniciar o servidor
