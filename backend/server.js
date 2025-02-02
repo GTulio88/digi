@@ -4,7 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
-const Client = require("./Client"); // Importa o modelo Client
+const Client = require("./Clients"); // Importa o modelo Client
 
 const app = express();
 
@@ -68,12 +68,10 @@ app.put("/api/update/:clientId", async (req, res) => {
       { new: true }
     );
     if (updatedClient) {
-      res
-        .status(200)
-        .json({
-          message: "Dados atualizados com sucesso!",
-          data: updatedClient,
-        });
+      res.status(200).json({
+        message: "Dados atualizados com sucesso!",
+        data: updatedClient,
+      });
     } else {
       res.status(404).json({ message: "Cliente não encontrado." });
     }
