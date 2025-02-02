@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require("path");
 
 const app = express();
 
@@ -31,12 +32,12 @@ app.use(
       "https://digi-uckg.onrender.com",
       "http://localhost:5173",
       "https://digi-delta-sooty.vercel.app",
-    ], // Adiciona o localhost
+    ],
   })
 );
-app.use(bodyParser.json()); // Middleware para interpretar JSON no corpo das requisições
+app.use(bodyParser.json());
 
-// Endpoint para buscar todos os dados
+// ✅ ROTAS DA API
 app.get("/api/data", async (req, res) => {
   try {
     const clients = await Client.find();
@@ -47,10 +48,9 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
-// Endpoint para salvar novos dados
 app.post("/api/submit", async (req, res) => {
   const { clients } = req.body;
-  console.log("Dados recebidos do frontend:", clients); // Adiciona este log
+  console.log("Dados recebidos do frontend:", clients);
 
   if (!Array.isArray(clients)) {
     return res.status(400).json({ error: "Formato de dados inválido" });
@@ -65,7 +65,6 @@ app.post("/api/submit", async (req, res) => {
   }
 });
 
-// Endpoint para excluir um registro pelo clientId
 app.delete("/api/delete/:clientId", async (req, res) => {
   const { clientId } = req.params;
 
@@ -83,7 +82,6 @@ app.delete("/api/delete/:clientId", async (req, res) => {
   }
 });
 
-// Endpoint para atualizar um registro pelo clientId
 app.put("/api/update/:clientId", async (req, res) => {
   const { clientId } = req.params;
   const updatedData = req.body;
@@ -102,18 +100,15 @@ app.put("/api/update/:clientId", async (req, res) => {
   }
 });
 
-// Inicia o servidor na porta especificada
+// ✅ SERVIR O FRONTEND APÓS AS ROTAS DA API
+app.use(express.static(path.join(__dirname, "frontend")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "index.html"));
+});
+
+// Inicia o servidor
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
-});
-
-const path = require("path");
-
-// Servir arquivos estáticos do frontend
-app.use(express.static(path.join(__dirname, "frontend"))); // Substitua "frontend" pelo caminho da sua build
-
-// Redirecionar todas as rotas para o index.html
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "index.html"));
 });
