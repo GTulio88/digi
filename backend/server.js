@@ -41,11 +41,11 @@ app.post("/api/submit", async (req, res) => {
   }
 });
 
-// ✅ Servir o Frontend (DEFINIDO APÓS AS ROTAS DA API)
-app.use(express.static(path.join(__dirname, "../my-app/dist")));
+// ✅ Servir o frontend da pasta build
+app.use(express.static(path.join(__dirname, "../my-app/build")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../my-app/dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../my-app/build", "index.html"));
 });
 
 // ✅ Iniciar o Servidor
