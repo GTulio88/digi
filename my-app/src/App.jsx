@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import TableComponent from "./components/TableComponent";
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "https://digi-uckg.onrender.com";
+  import.meta.env.VITE_API_BASE_URL || "https://digi-backend.onrender.com";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -251,23 +251,11 @@ function App() {
   };
 
   const validateAndSubmit = async () => {
-    const [hours, minutes] = formData.hoursWorked.split("h").map(Number);
-
-    if (isNaN(hours) || isNaN(minutes)) {
-      alert("Formato de horas trabalhadas inválido.");
-      return;
-    }
-
-    if (hours > 12 || minutes > 59) {
-      alert("Os valores de horas ou minutos são inválidos.");
-      return;
-    }
-
     try {
       const response = await fetch(`${API_BASE_URL}/api/submit`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ clients: [...submittedClients, formData] }),
+        body: JSON.stringify({ clients: [formData] }),
       });
 
       if (!response.ok) {
@@ -276,24 +264,10 @@ function App() {
 
       const data = await response.json();
       console.log("Dados enviados com sucesso:", data);
-
-      setShowModal(false);
-      setCurrentStep(1);
-      setFormData({
-        date: new Date().toISOString().split("T")[0],
-        hoursWorked: "",
-        clientId: "",
-        clientAddress: "",
-        serviceType: "",
-        status: "",
-        notes: "",
-      });
-      setSubmittedClients([]);
     } catch (error) {
       console.error("Erro ao enviar dados:", error);
     }
   };
-
   const renderStepContent = () => {
     switch (currentStep) {
       case 1:
