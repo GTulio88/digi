@@ -31,9 +31,16 @@ app.use((req, res, next) => {
 });
 
 // ✅ ROTAS DA API
-app.get("/api/data", (req, res) => {
-  console.log("✅ Endpoint /api/data acessado");
-  res.status(200).json({ message: "API funcionando!" });
+app.get("/api/data", async (req, res) => {
+  try {
+    const clients = await Client.find();
+    res.status(200).json(clients);
+  } catch (error) {
+    console.error("❌ Erro ao buscar dados:", error);
+    res
+      .status(500)
+      .json({ success: false, message: error.message, details: error });
+  }
 });
 
 app.post("/api/submit", (req, res) => {
