@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000",
+  baseURL:
+    import.meta.env.VITE_API_BASE_URL || "https://digi-uckg.onrender.com",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -9,14 +10,3 @@ const api = axios.create({
 });
 
 export default api;
-
-// import axios from "axios";
-
-// const api = axios.create({
-//   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL, // Defina no Vercel
-//   timeout: 10000,
-//   headers: {
-//     "Content-Type": "application/json",
-//   },
-// });
-// export default api;
