@@ -36,14 +36,19 @@ app.use((req, res, next) => {
 // Buscar dados
 app.get("/api/data", async (req, res) => {
   try {
+    console.log("📥 Requisição recebida em /api/data");
     const clients = await Client.find();
     res.status(200).json(clients);
   } catch (error) {
     console.error("❌ Erro ao buscar dados:", error);
-    res.status(500).json({ success: false, message: error.message });
+    res.status(500).json({
+      success: false,
+      message: "Erro interno ao buscar dados",
+      error: error.message,
+      stack: error.stack,
+    });
   }
 });
-
 // Salvar novos dados
 app.post("/api/submit", async (req, res) => {
   try {
