@@ -98,10 +98,10 @@ app.delete("/api/delete/:clientId", async (req, res) => {
 });
 
 // ✅ Servir o frontend
-app.use(express.static(path.join(__dirname, "../my-app/dist"))); // Certifique-se que o build está correto
+app.use(express.static(path.join(__dirname, "../my-app/build"))); // Certifique-se que o build está correto
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../my-app/dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../my-app/build", "index.html"));
 });
 
 // ✅ Iniciar o servidor
