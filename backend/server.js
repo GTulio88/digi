@@ -23,6 +23,10 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+  console.log(`Requisição recebida: ${req.method} ${req.url}`);
+  next();
+});
 
 // ✅ ROTAS DA API (antes do frontend)
 app.get("/api/data", async (req, res) => {
