@@ -30,14 +30,26 @@ app.get("/api/data", async (req, res) => {
 
 app.post("/api/submit", async (req, res) => {
   try {
+    console.log("📥 Dados recebidos do frontend:", req.body); // Verificar os dados recebidos
+
     const { clients } = req.body;
+
+    if (!Array.isArray(clients)) {
+      throw new Error("O formato de dados enviado não é um array de clientes.");
+    }
+
     const savedClients = await Client.insertMany(clients);
     res
       .status(201)
       .json({ message: "Dados salvos com sucesso!", data: savedClients });
   } catch (error) {
     console.error("❌ Erro ao salvar dados:", error);
-    res.status(500).json({ success: false, message: error.message });
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      stack: error.stack,
+    });
   }
 });
 
