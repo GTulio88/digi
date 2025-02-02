@@ -33,13 +33,17 @@ app.use((req, res, next) => {
 // ✅ ROTAS DA API
 app.get("/api/data", async (req, res) => {
   try {
+    console.log("📥 Requisição para /api/data recebida");
     const clients = await Client.find();
     res.status(200).json(clients);
   } catch (error) {
     console.error("❌ Erro ao buscar dados:", error);
-    res
-      .status(500)
-      .json({ success: false, message: error.message, details: error });
+    res.status(500).json({
+      success: false,
+      message: "Erro interno ao buscar dados",
+      error: error.message, // Mostra a mensagem do erro
+      stack: error.stack, // Mostra o stack trace do erro
+    });
   }
 });
 
