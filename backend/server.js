@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const path = require("path");
+const Client = require("./Client"); // Importa o modelo Client
 
 const app = express();
 
@@ -31,34 +32,78 @@ app.use((req, res, next) => {
 });
 
 // ✅ ROTAS DA API
+
+// Buscar dados
 app.get("/api/data", async (req, res) => {
   try {
-    console.log("📥 Requisição para /api/data recebida");
     const clients = await Client.find();
     res.status(200).json(clients);
   } catch (error) {
     console.error("❌ Erro ao buscar dados:", error);
-    res.status(500).json({
-      success: false,
-      message: "Erro interno ao buscar dados",
-      error: error.message, // Mostra a mensagem do erro
-      stack: error.stack, // Mostra o stack trace do erro
-    });
+    res.status(500).json({ success: false, message: error.message });
   }
 });
 
-app.post("/api/submit", (req, res) => {
-  console.log("✅ Endpoint /api/submit acessado");
-  res.status(200).json({ message: "Dados recebidos com sucesso!" });
+// Salvar novos dados
+app.post("/api/submit", async (req, res) => {
+  try {
+    const { clients } = req.body;
+    const savedClients = await Client.insertMany(clients);
+    res
+      .status(201)
+      .json({ message: "Dados salvos com sucesso!", data: savedClients });
+  } catch (error) {
+    console.error("❌ Erro ao salvar dados:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
 });
 
-// ✅ Servir o frontend após as rotas da API
-app.use(express.static(path.join(__dirname, "../my-app"))); // Certifique-se que o build está na pasta correta
+// Atualizar registro
+app.put("/api/update/:clientId", async (req, res) => {
+  try {
+    const { clientId } = req.params;
+    const updatedClient = await Client.findOneAndUpdate(
+      { clientId },
+      req.body,
+      { new: true }
+    );
+    if (updatedClient) {
+      res
+        .status(200)
+        .json({
+          message: "Dados atualizados com sucesso!",
+          data: updatedClient,
+        });
+    } else {
+      res.status(404).json({ message: "Cliente não encontrado." });
+    }
+  } catch (error) {
+    console.error("❌ Erro ao atualizar dados:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
 
-// 🚨 Captura de todas as outras rotas (apenas se não for API)
+// Excluir registro
+app.delete("/api/delete/:clientId", async (req, res) => {
+  try {
+    const { clientId } = req.params;
+    const deletedClient = await Client.findOneAndDelete({ clientId });
+    if (deletedClient) {
+      res.status(200).json({ message: "Registro excluído com sucesso!" });
+    } else {
+      res.status(404).json({ message: "Cliente não encontrado." });
+    }
+  } catch (error) {
+    console.error("❌ Erro ao excluir dados:", error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+});
+
+// ✅ Servir o frontend
+app.use(express.static(path.join(__dirname, "../my-app/dist"))); // Certifique-se que o build está correto
+
 app.get("*", (req, res) => {
-  console.log("🚨 Redirecionamento para o index.html");
-  res.sendFile(path.join(__dirname, "../my-app", "index.html"));
+  res.sendFile(path.join(__dirname, "../my-app/dist", "index.html"));
 });
 
 // ✅ Iniciar o servidor
