@@ -1,0 +1,922 @@
+[
+  {
+    "date": "2025-01-02",
+    "hoursWorked": "8h00",
+    "clientId": "8881772",
+    "clientAddress": "Via Giovanni Francesco Napeone, 41",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "00664045-c66b-4be6-bc6f-75dff697ad73"
+  },
+  {
+    "date": "2025-01-02",
+    "hoursWorked": "8h00",
+    "clientId": "8882869",
+    "clientAddress": "Via Monte Rosa, 65",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "7dd066df-010f-41ff-8dd9-ae95e5a555a3"
+  },
+  {
+    "date": "2025-01-02",
+    "hoursWorked": "8h00",
+    "clientId": "8880485",
+    "clientAddress": "Piazza Tancredi Galimberti, 20",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "cb95b6c7-40f9-44a3-823d-500a6e4b24ee"
+  },
+  {
+    "date": "2025-01-02",
+    "hoursWorked": "8h00",
+    "clientId": "8880952",
+    "clientAddress": "Via Arquata, 14/4",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "801e4f46-1f0c-429f-8f23-89916826ce39"
+  },
+  {
+    "date": "2025-01-03",
+    "hoursWorked": "8h00",
+    "clientId": "7612873",
+    "clientAddress": "Via Monte Rosa, 123",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "c9482b51-9c5a-4c3b-81c1-a1f1d14dda1f"
+  },
+  {
+    "date": "2025-01-03",
+    "hoursWorked": "8h00",
+    "clientId": "8881769",
+    "clientAddress": "Corso Vercelli, 101",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "0e545eb0-336c-41f0-8209-b196abbc3a1f"
+  },
+  {
+    "date": "2025-01-03",
+    "hoursWorked": "8h00",
+    "clientId": "8751679",
+    "clientAddress": "Corso Siracusa, 95",
+    "serviceType": "guasto",
+    "status": "nok",
+    "notes": "Avaria externa, sem sinal",
+    "id": "b1452f21-9840-4fca-879f-084c0e63f8eb"
+  },
+  {
+    "date": "2025-01-14",
+    "hoursWorked": "8h00",
+    "clientId": "8839271",
+    "clientAddress": "Corso Novara, 93",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "6dd48ab1-0711-44a5-8516-6a54055ceca4"
+  },
+  {
+    "date": "2025-01-14",
+    "hoursWorked": "8h00",
+    "clientId": "8890816",
+    "clientAddress": "Via Felleto, 48",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "be4db29e-7560-4b4f-8292-9cf2980f6aaa"
+  },
+  {
+    "date": "2025-01-14",
+    "hoursWorked": "8h00",
+    "clientId": "8891148",
+    "clientAddress": "Via Alessandro Scarlatti, 23",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Devemos repassar a fibra",
+    "id": "d3b5519b-1a78-4313-8e18-41541269d94e"
+  },
+  {
+    "date": "2025-01-14",
+    "hoursWorked": "8h00",
+    "clientId": "8865106",
+    "clientAddress": "Via Verres, 44",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "c1741efd-4c6e-44a4-8802-5942bfaa22ab"
+  },
+  {
+    "date": "2025-01-15",
+    "hoursWorked": "8h00",
+    "clientId": "8892121",
+    "clientAddress": "Via Monbasiglio, 39",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "a99e3130-a123-4dea-8bbe-925e2e3030eb"
+  },
+  {
+    "date": "2025-01-15",
+    "hoursWorked": "8h00",
+    "clientId": "8895075",
+    "clientAddress": "Corso Carlo E Nello Rosselli, 117",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "8b1a4c78-7498-4a08-af10-ed03507bb848"
+  },
+  {
+    "date": "2025-01-15",
+    "hoursWorked": "8h00",
+    "clientId": "8809023",
+    "clientAddress": "Via Marco Polo, 41",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "3081b3e8-4e19-4919-aba5-d8121fbaf677"
+  },
+  {
+    "date": "2025-01-15",
+    "hoursWorked": "8h00",
+    "clientId": "8892118",
+    "clientAddress": "Via Tripoli, 4",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "d5794500-8877-40cc-ace6-19dfd67fb77c"
+  },
+  {
+    "date": "2025-01-16",
+    "hoursWorked": "8h00",
+    "clientId": "8888030",
+    "clientAddress": "Via Crescentino, 25",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "1eae286b-42b4-4eee-b9ee-97da17cc9918"
+  },
+  {
+    "date": "2025-01-16",
+    "hoursWorked": "8h00",
+    "clientId": "8893917",
+    "clientAddress": "Corso Giulio Cesare, 64",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "fb0adab3-af17-4dc9-9d67-a6856ced5a75"
+  },
+  {
+    "date": "2025-01-16",
+    "hoursWorked": "8h00",
+    "clientId": "8888586",
+    "clientAddress": "Corso Giulio Cesare, 125",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "b18b2b26-e89c-4281-a10f-e00518e2ae71"
+  },
+  {
+    "date": "2025-01-16",
+    "hoursWorked": "8h00",
+    "clientId": "8821447",
+    "clientAddress": "Corso Giulio Cesare, 47/e (bar)",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Cliente ausente",
+    "id": "dce42796-136a-4e16-be1b-317498ed81fc"
+  },
+  {
+    "date": "2025-01-16",
+    "hoursWorked": "8h00",
+    "clientId": "8895992",
+    "clientAddress": "Via Francesco Denza, 12",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Cliente em reforma",
+    "id": "e68167d1-5f21-4266-9219-677b96cdfe1f"
+  },
+  {
+    "date": "2025-01-17",
+    "hoursWorked": "8h00",
+    "clientId": "8860058",
+    "clientAddress": "Via Giovanni Francesco Napeone, 36",
+    "serviceType": "guasto",
+    "status": "ok",
+    "notes": "Refeita a fusao",
+    "id": "a4aa480e-4cb9-4a7f-b3c1-f35eeae66408"
+  },
+  {
+    "date": "2025-01-17",
+    "hoursWorked": "8h00",
+    "clientId": "8662916",
+    "clientAddress": "Corso Spezia, 23",
+    "serviceType": "guasto",
+    "status": "ok",
+    "notes": "Pedreiro danificou o cabo",
+    "id": "01273bf1-51b8-4ab2-b00c-c3b6be071cf1"
+  },
+  {
+    "date": "2025-01-17",
+    "hoursWorked": "8h00",
+    "clientId": "8894016",
+    "clientAddress": "Corso Vercelli, 140bis/c (loja)",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "67e50704-d05a-4584-9cf3-9a8b09528ea6"
+  },
+  {
+    "date": "2025-01-18",
+    "hoursWorked": "7h00",
+    "clientId": "8898560",
+    "clientAddress": "Via Leini, 62",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "4cf7df3c-6c65-42c2-b2da-1c98bdf70fdf"
+  },
+  {
+    "date": "2025-01-18",
+    "hoursWorked": "7h00",
+    "clientId": "8898078",
+    "clientAddress": "Via Luigi Salvatore Cherubini, 6",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "9147944d-5cd0-4fca-a6f7-53db6f6257f2"
+  },
+  {
+    "date": "2025-01-18",
+    "hoursWorked": "7h00",
+    "clientId": "8730195",
+    "clientAddress": "Via Podgora, 1",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "9d0f5747-c786-4cb9-87c8-a04b0d7c424f"
+  },
+  {
+    "date": "2025-01-20",
+    "hoursWorked": "9h30",
+    "clientId": "8895729",
+    "clientAddress": "Via Bertrando Spaventa, 20",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "02a2036c-41e4-4068-9b6a-c3966831cc86"
+  },
+  {
+    "date": "2025-01-20",
+    "hoursWorked": "9h30",
+    "clientId": "8791550",
+    "clientAddress": "Corso Giovanni Agnelli, 156/2",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "988c6477-0485-4e41-a010-128e68ec880d"
+  },
+  {
+    "date": "2025-01-20",
+    "hoursWorked": "9h30",
+    "clientId": "8891148",
+    "clientAddress": "Via Alessandro Scarlate, 23",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "4e9d6303-1c80-461f-8d3e-f27584f57298"
+  },
+  {
+    "date": "2025-01-20",
+    "hoursWorked": "9h30",
+    "clientId": "8897007",
+    "clientAddress": "Corso Giulio Cesare 116/h (loja)",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "b7b73e47-1f7a-4f8b-b59e-31cafa70fe5d"
+  },
+  {
+    "date": "2025-01-21",
+    "hoursWorked": "8h30",
+    "clientId": "8898568",
+    "clientAddress": "Via Carlo Bossoli, 93",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "a441c2b9-f240-43d6-8f8a-9bb8fa9dcc79"
+  },
+  {
+    "date": "2025-01-21",
+    "hoursWorked": "8h30",
+    "clientId": "8900738",
+    "clientAddress": "Via Arquata, 23/73",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "13beeb03-c047-47b6-abc4-3f0d460d52b7"
+  },
+  {
+    "date": "2025-01-21",
+    "hoursWorked": "8h30",
+    "clientId": "8900975",
+    "clientAddress": "Via San Marino, 89/21",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "00a46f6b-b38f-476d-9b6a-f775dfa4d806"
+  },
+  {
+    "date": "2025-01-21",
+    "hoursWorked": "8h30",
+    "clientId": "8997006",
+    "clientAddress": "Corso Orbassano, 116",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "dd5d61c8-ba84-44f4-a5d6-8286298306ba"
+  },
+  {
+    "date": "2025-01-21",
+    "hoursWorked": "8h30",
+    "clientId": "8861180",
+    "clientAddress": "Corso Taranto, 90b",
+    "serviceType": "guasto",
+    "status": "ok",
+    "notes": "Refeita a fusao",
+    "id": "8e843dc8-f7fa-4b07-b223-9a08e77ec598"
+  },
+  {
+    "date": "2025-01-22",
+    "hoursWorked": "8h00",
+    "clientId": "8899179",
+    "clientAddress": "Via Montezemolo, 37",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "b6bc5f87-7f6a-4d93-9d46-ac2ef4c64072"
+  },
+  {
+    "date": "2025-01-22",
+    "hoursWorked": "8h00",
+    "clientId": "8999299",
+    "clientAddress": "Corso Carlo Enello Rosselli, 86/a",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "7840854b-8772-4128-902d-fa0b272b683a"
+  },
+  {
+    "date": "2025-01-22",
+    "hoursWorked": "8h00",
+    "clientId": "8902061",
+    "clientAddress": "Corso Giulio Cesare, 124",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "4c0689ba-7007-4283-9406-ec5de76e8006"
+  },
+  {
+    "date": "2025-01-22",
+    "hoursWorked": "8h00",
+    "clientId": "8902063",
+    "clientAddress": "Corso Taranto, 136",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "b43f3712-10b4-46d2-aa81-f2de3046154a"
+  },
+  {
+    "date": "2025-01-22",
+    "hoursWorked": "8h00",
+    "clientId": "8892726",
+    "clientAddress": "Corso Giulio Cesare, 116",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "41745527-b3ac-493b-b851-7382268e7cc3"
+  },
+  {
+    "date": "2025-01-23",
+    "hoursWorked": "8h30",
+    "clientId": "8902066",
+    "clientAddress": "Via Francesco Cigna, 57",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "2addb971-e042-42e0-b098-d75c9e2ce121"
+  },
+  {
+    "date": "2025-01-23",
+    "hoursWorked": "8h30",
+    "clientId": "8898079",
+    "clientAddress": "Via Bra, 11",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "ef678f80-6cd1-4afe-9710-10972caca552"
+  },
+  {
+    "date": "2025-01-23",
+    "hoursWorked": "8h30",
+    "clientId": "8902064",
+    "clientAddress": "Corso Belgio, 46",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Cliente contatara adm",
+    "id": "bfa31830-d607-4d7f-8df3-4be3c8608c16"
+  },
+  {
+    "date": "2025-01-23",
+    "hoursWorked": "8h30",
+    "clientId": "8895728",
+    "clientAddress": "Via Francesco Cigna, 73",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "d4007b4b-b6b1-4bb4-a32d-56bcac6595c9"
+  },
+  {
+    "date": "2025-01-23",
+    "hoursWorked": "8h30",
+    "clientId": "8903978",
+    "clientAddress": "Via Luigi Cherubini, 7/a",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "a6c71fe6-692d-434b-851b-1d88d6ce0466"
+  },
+  {
+    "date": "2025-01-24",
+    "hoursWorked": "8h00",
+    "clientId": "8901109",
+    "clientAddress": "Corso Giuseppe Tartini, 41",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "c3e8144a-ff44-4f36-84ed-7c10c1019e61"
+  },
+  {
+    "date": "2025-01-24",
+    "hoursWorked": "8h00",
+    "clientId": "8896165",
+    "clientAddress": "Via Giambattista Pergolesi, 91",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "3434605d-2b44-485f-9dc7-b67169f4b600"
+  },
+  {
+    "date": "2025-01-24",
+    "hoursWorked": "8h00",
+    "clientId": "8890832",
+    "clientAddress": "Corso Brescia, 13",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "cbbcc008-51a0-4e34-b97c-b65bce1af8fc"
+  },
+  {
+    "date": "2025-01-24",
+    "hoursWorked": "8h00",
+    "clientId": "8898563",
+    "clientAddress": "Via Aosta, 60",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "66efa35c-fb76-4ed7-95aa-b02b19145fb1"
+  },
+  {
+    "date": "2025-01-25",
+    "hoursWorked": "4h30",
+    "clientId": "8893013",
+    "clientAddress": "Via Antonio Cecchi, 64",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Cliente sem chave da cantina",
+    "id": "071b43bf-42dd-4372-8a38-284634f00c09"
+  },
+  {
+    "date": "2025-01-25",
+    "hoursWorked": "4h30",
+    "clientId": "8901113",
+    "clientAddress": "Via Renato Martorelli, 68",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "710d026f-81b8-45b3-b391-9482674f3aee"
+  },
+  {
+    "date": "2025-01-25",
+    "hoursWorked": "4h30",
+    "clientId": "8559652",
+    "clientAddress": "Via Lesegno, 82",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "e6bc4cf4-1dbe-4197-8231-08419554b140"
+  },
+  {
+    "date": "2025-01-27",
+    "hoursWorked": "8h00",
+    "clientId": "8903393",
+    "clientAddress": "Via Giacomo Dina, 83",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "5c44f0e6-72ec-4d9c-af1c-71c7ff9b5750"
+  },
+  {
+    "date": "2025-01-27",
+    "hoursWorked": "8h00",
+    "clientId": "8904623",
+    "clientAddress": "Via Gorizia, 127",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "eae57d50-021f-40e7-81a7-c96eb1d557ca"
+  },
+  {
+    "date": "2025-01-27",
+    "hoursWorked": "8h00",
+    "clientId": "8904910",
+    "clientAddress": "Via Ugo Foscolo, 7",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "ab5e424d-ee71-42a0-9635-3a0b97644f0d"
+  },
+  {
+    "date": "2025-01-27",
+    "hoursWorked": "8h00",
+    "clientId": "8905229",
+    "clientAddress": "Via Nizza, 223",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "8ce84d8c-df82-4e73-b593-6a082e870d71"
+  },
+  {
+    "date": "2025-01-28",
+    "hoursWorked": "8h00",
+    "clientId": "8904916",
+    "clientAddress": "Via Arcangelo Corelli, 41",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "2cd3637a-0fc8-4e4e-8aa2-20cce1d45c56"
+  },
+  {
+    "date": "2025-01-28",
+    "hoursWorked": "8h00",
+    "clientId": "8899660",
+    "clientAddress": "Via Francesco Cigna, 55",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "9ad79467-bfb7-4eab-9f96-6be293f12d76"
+  },
+  {
+    "date": "2025-01-28",
+    "hoursWorked": "8h00",
+    "clientId": "8821447",
+    "clientAddress": "Corso Giulio Cesare, 47/e",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "e5c07c6d-cfad-44e6-9d26-445147f736d5"
+  },
+  {
+    "date": "2025-01-28",
+    "hoursWorked": "8h00",
+    "clientId": "8880918",
+    "clientAddress": "Via Belfiore, 8",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Cliente reagendou",
+    "id": "359e8541-cefd-402c-9283-c2d2e6cf913b"
+  },
+  {
+    "date": "2025-01-29",
+    "hoursWorked": "8h00",
+    "clientId": "8906302",
+    "clientAddress": "Corso Giulio Cesare, 44",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "b78c3b0c-3300-45ae-998b-de30d3a12e79"
+  },
+  {
+    "date": "2025-01-29",
+    "hoursWorked": "8h00",
+    "clientId": "2396611",
+    "clientAddress": "Corso Giulio Cesare, 85/a",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "dd2874ce-a82c-46d4-9e62-f5e307d72757"
+  },
+  {
+    "date": "2025-01-29",
+    "hoursWorked": "8h00",
+    "clientId": "8891910",
+    "clientAddress": "Via Montevideo, 20/c",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "a419c530-e28c-4a3e-b508-30b097ff715f"
+  },
+  {
+    "date": "2025-01-29",
+    "hoursWorked": "8h00",
+    "clientId": "8906303",
+    "clientAddress": "Via Tripoli, 60",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "32bad520-face-4af0-8a11-c473869d62cf"
+  },
+  {
+    "date": "2025-01-30",
+    "hoursWorked": "8h00",
+    "clientId": "8894772",
+    "clientAddress": "Via Passo Buole, 65",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "ac6d975d-65c9-477e-9221-3d523315db12"
+  },
+  {
+    "date": "2025-01-30",
+    "hoursWorked": "8h00",
+    "clientId": "8888031",
+    "clientAddress": "Via Ormea, 105",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "900cb9f4-cd3d-4314-87a1-76463d058d9d"
+  },
+  {
+    "date": "2025-01-30",
+    "hoursWorked": "8h00",
+    "clientId": "2044510",
+    "clientAddress": "Via Madonna Delle Rose, 44",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "ff26fd7d-7dfa-4bc5-a784-bb64ced50d64"
+  },
+  {
+    "date": "2025-01-30",
+    "hoursWorked": "8h00",
+    "clientId": "8905562",
+    "clientAddress": "Via Stellone, 2",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "75ff67e3-eac1-4ad7-bb5c-3e468b51d57b"
+  },
+  {
+    "date": "2025-01-31",
+    "hoursWorked": "8h00",
+    "clientId": "8901117",
+    "clientAddress": "Corso Carlo E Nello Rosselli, 90",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "b4c9907f-8f90-4b54-8100-7f0d83561978"
+  },
+  {
+    "date": "2025-01-31",
+    "hoursWorked": "8h00",
+    "clientId": "8597112",
+    "clientAddress": "Via Felice Briccarello, 16",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "fd4820c1-0a06-40b4-b076-690799459dc5"
+  },
+  {
+    "date": "2025-01-31",
+    "hoursWorked": "8h00",
+    "clientId": "8908181",
+    "clientAddress": "Via Tunisi, 187",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "78306892-93c6-468f-b267-f360143bac59"
+  },
+  {
+    "date": "2025-01-31",
+    "hoursWorked": "8h00",
+    "clientId": "8908312",
+    "clientAddress": "Via Buenos Aires, 114",
+    "serviceType": "installazione",
+    "status": "nok",
+    "notes": "Sem sinal na caixa",
+    "id": "f0108ee0-415e-4722-a13c-dc09b1e680f7"
+  },
+  {
+    "date": "2025-02-01",
+    "hoursWorked": "7h00",
+    "clientId": "8907199",
+    "clientAddress": "Via Genova, 216",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "28cbfdf3-6bc5-4e6f-989d-b815b419eb80"
+  },
+  {
+    "date": "2025-02-01",
+    "hoursWorked": "7h00",
+    "clientId": "8672511",
+    "clientAddress": "Via Assuncion, 40",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "87e39552-1174-4228-97f6-f48010d5ffb4"
+  },
+  {
+    "date": "2025-02-01",
+    "hoursWorked": "7h00",
+    "clientId": "8909025",
+    "clientAddress": "Corso Corsica, 2",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "26286091-1184-4094-b8be-57fde786e2d8"
+  },
+  {
+    "date": "2025-02-01",
+    "hoursWorked": "7h00",
+    "clientId": "8863366",
+    "clientAddress": "Corso Orbassano, 236",
+    "serviceType": "guasto",
+    "status": "nok",
+    "notes": "Sem sinal",
+    "id": "f60d46b9-27f3-47fc-ba53-cb991f8f5de1"
+  },
+  {
+    "date": "2025-02-03",
+    "hoursWorked": "8h00",
+    "clientId": "8905251",
+    "clientAddress": "Via Chatillon, 50",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "Sem sinal",
+    "id": "d4c028b1-0b93-484c-81bb-2fd6d6f1f514"
+  },
+  {
+    "date": "2025-02-03",
+    "hoursWorked": "8h00",
+    "clientId": "8910552",
+    "clientAddress": "Corso Taranto, 5",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "59269709-e7d4-420d-a70e-afdf7d559cc4"
+  },
+  {
+    "date": "2025-02-03",
+    "hoursWorked": "8h00",
+    "clientId": "8910547",
+    "clientAddress": "Via Bisalta, 10",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "714e7ecc-dc2a-4599-9298-cfd67be645ee"
+  },
+  {
+    "date": "2025-02-03",
+    "hoursWorked": "8h00",
+    "clientId": "8765472",
+    "clientAddress": "Corso Siracusa, 55",
+    "serviceType": "guasto",
+    "status": "nok",
+    "notes": "Sem sinal na caixa.",
+    "id": "f7928e8b-9b84-4554-8b3f-b58eb44c0f27"
+  },
+  {
+    "date": "2025-02-04",
+    "hoursWorked": "8h00",
+    "clientId": "8910546",
+    "clientAddress": "Via Ellero, 34",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "a109ad96-a029-4312-950e-5307cd9a310c"
+  },
+  {
+    "date": "2025-02-04",
+    "hoursWorked": "8h00",
+    "clientId": "8910982",
+    "clientAddress": "Via Pio Vii, 164/l",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "563b2f5e-d9bf-45ad-8c95-466549d692c1"
+  },
+  {
+    "date": "2025-02-04",
+    "hoursWorked": "8h00",
+    "clientId": "8802138",
+    "clientAddress": "Via San Secondo, 86",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "208612b5-28a6-418e-8bd4-fba2d47bb45d"
+  },
+  {
+    "date": "2025-02-05",
+    "hoursWorked": "8h00",
+    "clientId": "8908839",
+    "clientAddress": "Via Eusebio Giambone, 67",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "7122af8f-ef9a-4f94-be5c-a615ab101b57"
+  },
+  {
+    "date": "2025-02-05",
+    "hoursWorked": "8h00",
+    "clientId": "8912537",
+    "clientAddress": "Corso Sebastopoli, 194",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "875e8933-2a71-4da3-95ea-ae090db07d01"
+  },
+  {
+    "date": "2025-02-05",
+    "hoursWorked": "8h00",
+    "clientId": "8910544",
+    "clientAddress": "Via Domenico Tibone, 11",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "d87d6561-efc8-46f4-b80d-f934e43de814"
+  },
+  {
+    "date": "2025-02-06",
+    "hoursWorked": "8h00",
+    "clientId": "8696518",
+    "clientAddress": "Piazza Giacomini, 12",
+    "serviceType": "guasto",
+    "status": "ok",
+    "notes": "",
+    "id": "d29c35c6-3266-49c8-b426-dac5171c154e"
+  },
+  {
+    "date": "2025-02-06",
+    "hoursWorked": "8h00",
+    "clientId": "8912210",
+    "clientAddress": "Via Buenos Aires, 82",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "0f19c20e-45a8-4899-bc38-073663c078c2"
+  },
+  {
+    "date": "2025-02-06",
+    "hoursWorked": "8h00",
+    "clientId": "8894772",
+    "clientAddress": "Via Passo Buole, 65",
+    "serviceType": "guasto",
+    "status": "ok",
+    "notes": "Refeita a fusao na caixa",
+    "id": "2bd105bc-d989-420b-af6e-95970d880c6a"
+  },
+  {
+    "date": "2025-02-06",
+    "hoursWorked": "8h00",
+    "clientId": "8908312",
+    "clientAddress": "Via Buenos Aires, 114",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "47e8c1f8-8bbc-4f7d-8e2b-44d5d362f52a"
+  },
+  {
+    "date": "2025-02-07",
+    "hoursWorked": "8h00",
+    "clientId": "8915794",
+    "clientAddress": "Via Passo  Buole, 16",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "64a531b0-ce6a-4a03-9da8-f6ac7c0bed03"
+  },
+  {
+    "date": "2025-02-07",
+    "hoursWorked": "8h00",
+    "clientId": "8914547",
+    "clientAddress": "Via Benvenuto Cellini, 31",
+    "serviceType": "installazione",
+    "status": "ok",
+    "notes": "",
+    "id": "37e815a5-be23-4807-b0bf-c9c65cf18fb9"
+  }
+]

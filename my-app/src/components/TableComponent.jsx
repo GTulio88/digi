@@ -9,6 +9,11 @@ import {
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const columnHelper = createColumnHelper();
+const formatDateBR = (date) => {
+  if (!date || typeof date !== "string") return "Data inválida";
+  const [year, month, day] = date.split("-");
+  return `${day}/${month}/${year}`;
+};
 
 const TableComponent = ({ data, onEdit, onDelete }) => {
   const [filter, setFilter] = useState("");
@@ -69,33 +74,21 @@ const TableComponent = ({ data, onEdit, onDelete }) => {
   const columns = [
     columnHelper.accessor("date", {
       header: "Data",
-      cell: (info) => {
-        const date = info.getValue();
-        if (date) {
-          const [year, month, day] = date.split("-");
-          const monthName = months[parseInt(month, 10) - 1];
-          return `${day}/${monthName}/${year.slice(-2)}`;
-        }
-        return "Data inválida";
-      },
-    }),
-    columnHelper.accessor("hoursWorked", {
-      header: "Hs",
+      cell: (info) => formatDateBR(info.getValue()) || "Sem data",
     }),
     columnHelper.accessor("clientId", {
-      header: "ID",
+      header: "ID Cliente",
     }),
     columnHelper.accessor("clientAddress", {
       header: "Endereço",
     }),
-    columnHelper.accessor("serviceType", {
-      header: "Serviço",
-    }),
     columnHelper.accessor("status", {
       header: "Status",
+      cell: (info) => info.getValue() || "Sem status",
     }),
     columnHelper.accessor("notes", {
-      header: "Observação",
+      header: "Observações",
+      cell: (info) => info.getValue() || "Sem observações",
     }),
     columnHelper.display({
       header: "Ações",
@@ -103,13 +96,13 @@ const TableComponent = ({ data, onEdit, onDelete }) => {
         <div className="action-buttons">
           <button
             className="btn-edit"
-            onClick={() => onEdit(info.row.original)} // Chama handleEdit
+            onClick={() => onEdit(info.row.original)}
           >
             Editar
           </button>
           <button
             className="btn-delete"
-            onClick={() => onDelete(info.row.original)} // Chama handleDelete
+            onClick={() => onDelete(info.row.original)}
           >
             Excluir
           </button>
@@ -117,6 +110,7 @@ const TableComponent = ({ data, onEdit, onDelete }) => {
       ),
     }),
   ];
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
