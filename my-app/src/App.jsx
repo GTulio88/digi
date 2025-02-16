@@ -609,30 +609,27 @@ function App() {
   };
 
   const handleDelete = async (row) => {
-    console.log("📦 Tentando excluir registro com ID:", row.clientId);
+    console.log("🗑️ Tentando excluir registro com _id:", row._id);
 
-    if (!row.clientId) {
+    if (!row._id) {
       console.error("❌ Erro: O registro não possui um ID único.");
       showCenteredToast("Erro: O registro não possui um ID único.");
       return;
     }
 
     const confirmDelete = window.confirm(
-      `Deseja excluir o registro com ID: ${row.clientId}?`
+      `Deseja excluir o registro com _id: ${row._id}?`
     );
 
     if (confirmDelete) {
       try {
         console.log(
-          `🔗 Enviando DELETE para: ${API_BASE_URL}/api/delete/${row.clientId}`
+          `🔗 Enviando DELETE para: ${API_BASE_URL}/api/delete/${row._id}`
         );
 
-        const response = await fetch(
-          `${API_BASE_URL}/api/delete/${row.clientId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`${API_BASE_URL}/api/delete/${row._id}`, {
+          method: "DELETE",
+        });
 
         console.log("🔄 Status da resposta:", response.status);
 
@@ -645,7 +642,7 @@ function App() {
 
         console.log("✅ Registro excluído com sucesso!");
         setTableData((prevData) =>
-          prevData.filter((item) => item.clientId !== row.clientId)
+          prevData.filter((item) => item._id !== row._id)
         );
         toast.success("✅ Cliente excluído com sucesso!", {
           position: "top-right",

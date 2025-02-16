@@ -125,18 +125,16 @@ app.put("/api/update/:clientId", async (req, res) => {
 });
 
 // ✅ Rota para excluir um registro por `clientId`
-app.delete("/api/delete/:clientId", async (req, res) => {
+app.delete("/api/delete/:id", async (req, res) => {
   try {
-    const { clientId } = req.params;
-    console.log("📤 Recebido pedido para excluir ID:", clientId);
+    const { id } = req.params;
+    console.log("📤 Tentando excluir registro com _id:", id);
 
-    if (!clientId) {
-      return res
-        .status(400)
-        .json({ message: "Erro: O registro não possui um ID único." });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Erro: ID inválido." });
     }
 
-    const deletedClient = await Client.findOneAndDelete({ clientId });
+    const deletedClient = await Client.findByIdAndDelete(id);
 
     if (!deletedClient) {
       return res
@@ -144,10 +142,14 @@ app.delete("/api/delete/:clientId", async (req, res) => {
         .json({ message: "Erro: Registro não encontrado." });
     }
 
-    res.json({ message: "Registro excluído com sucesso!" });
+    res
+      .status(200)
+      .json({ message: "Registro excluído com sucesso!", deletedClient });
   } catch (error) {
     console.error("❌ Erro ao excluir registro:", error);
-    res.status(500).json({ message: "Erro ao excluir registro." });
+    res
+      .status(500)
+      .json({ message: "Erro ao excluir registro.", error: error.message });
   }
 });
 
