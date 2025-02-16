@@ -128,10 +128,20 @@ app.put("/api/update/:clientId", async (req, res) => {
 app.delete("/api/delete/:clientId", async (req, res) => {
   try {
     const { clientId } = req.params;
+    console.log("📤 Recebido pedido para excluir ID:", clientId);
+
+    if (!clientId) {
+      return res
+        .status(400)
+        .json({ message: "Erro: O registro não possui um ID único." });
+    }
+
     const deletedClient = await Client.findOneAndDelete({ clientId });
 
     if (!deletedClient) {
-      return res.status(404).json({ message: "Registro não encontrado." });
+      return res
+        .status(404)
+        .json({ message: "Erro: Registro não encontrado." });
     }
 
     res.json({ message: "Registro excluído com sucesso!" });
@@ -140,6 +150,7 @@ app.delete("/api/delete/:clientId", async (req, res) => {
     res.status(500).json({ message: "Erro ao excluir registro." });
   }
 });
+
 // Se nenhuma rota for encontrada, retorna erro 404 para evitar que o frontend seja servido
 app.use((req, res, next) => {
   res.status(404).json({ message: "❌ Rota não encontrada." });
