@@ -1,5 +1,7 @@
 // Carrega variáveis de ambiente do arquivo .env
 require("dotenv").config();
+console.log("🔍 Variáveis de ambiente carregadas:");
+console.log("MONGO_URI:", process.env.MONGO_URI || "❌ Não definido!");
 
 // Importação de módulos necessários
 const express = require("express");
