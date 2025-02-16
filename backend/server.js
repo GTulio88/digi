@@ -79,14 +79,14 @@ app.post("/api/submit", async (req, res) => {
           .status(400)
           .json({ message: "Cada cliente deve ter um clientId." });
       }
-      const existingClient = await Client.findOne({
-        clientId: client.clientId,
-      });
-      if (existingClient) {
-        return res
-          .status(400)
-          .json({ message: `O clientId ${client.clientId} já existe.` });
-      }
+      // const existingClient = await Client.findOne({
+      //   clientId: client.clientId,
+      // });
+      // if (existingClient) {
+      //   return res
+      //     .status(400)
+      //     .json({ message: `O clientId ${client.clientId} já existe.` });
+      // }
     }
 
     const newClients = await Client.insertMany(req.body.clients);
