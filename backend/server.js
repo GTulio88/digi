@@ -40,7 +40,7 @@ mongoose
 const clientSchema = new mongoose.Schema({
   date: String,
   hoursWorked: String,
-  clientId: { type: String, unique: true, required: true }, // Garante que clientId seja único
+  clientId: { type: String, required: true }, // Garante que clientId seja único
   clientAddress: String,
   serviceType: String,
   status: String,
