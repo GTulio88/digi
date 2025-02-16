@@ -144,5 +144,13 @@ app.delete("/api/delete/:clientId", async (req, res) => {
 app.use((req, res, next) => {
   res.status(404).json({ message: "❌ Rota não encontrada." });
 });
+
+console.log("🛠️ Rotas Registradas:");
+app._router.stack.forEach((r) => {
+  if (r.route && r.route.path) {
+    console.log(`➡️ ${r.route.stack[0].method.toUpperCase()} ${r.route.path}`);
+  }
+});
+
 // Iniciar o servidor
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
