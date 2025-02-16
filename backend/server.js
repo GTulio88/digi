@@ -107,20 +107,40 @@ app.put("/api/update/:clientId", async (req, res) => {
     const { clientId } = req.params;
     const updatedData = req.body;
 
+    console.log("🔄 Recebendo update para ID:", clientId);
+    console.log(
+      "📥 Dados recebidos para atualização:",
+      JSON.stringify(updatedData, null, 2)
+    );
+
+    if (!clientId) {
+      return res.status(400).json({ message: "Erro: clientId não fornecido." });
+    }
+
+    if (Object.keys(updatedData).length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Erro: Nenhum dado para atualizar." });
+    }
+
     const updatedClient = await Client.findOneAndUpdate(
-      { clientId },
+      { clientId: String(clientId) },
       updatedData,
       { new: true }
     );
 
     if (!updatedClient) {
+      console.warn("⚠️ Registro não encontrado para atualização:", clientId);
       return res.status(404).json({ message: "Registro não encontrado." });
     }
 
+    console.log("✅ Registro atualizado com sucesso:", updatedClient);
     res.json({ message: "Registro atualizado com sucesso!", updatedClient });
   } catch (error) {
     console.error("❌ Erro ao atualizar registro:", error);
-    res.status(500).json({ message: "Erro ao atualizar registro." });
+    res
+      .status(500)
+      .json({ message: "Erro ao atualizar registro.", error: error.message });
   }
 });
 

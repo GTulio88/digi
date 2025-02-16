@@ -659,13 +659,18 @@ function App() {
   };
 
   async function handleSaveEdit(client, updatedData) {
-    console.log("📦 Dados do cliente:", client); // Verificar o que está sendo recebido
+    console.log("📦 Cliente a ser atualizado:", client);
+    console.log(
+      "📤 Dados enviados para atualização:",
+      JSON.stringify(updatedData, null, 2)
+    );
 
     try {
-      const clientId = client.clientId; // Obtém o clientId do cliente
+      const clientId = client.clientId;
 
       if (!clientId) {
-        console.error("❌ clientId está indefinido!");
+        console.error("❌ clientId está indefinido ou inválido!");
+        toast.error("Erro: clientId inválido.");
         return;
       }
 
@@ -676,15 +681,18 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error("Erro ao atualizar o registro.");
+        const errorText = await response.text();
+        throw new Error(`Erro na atualização: ${errorText}`);
       }
 
       const result = await response.json();
       console.log("✅ Registro atualizado com sucesso:", result);
-      fetchData(); // Atualiza a tabela
-      setShowModalEdit(false); // Fecha o modal de edição
+      fetchData();
+      setShowModalEdit(false);
+      toast.success("✅ Registro atualizado com sucesso!");
     } catch (error) {
       console.error("❌ Erro ao atualizar registro:", error);
+      toast.error(`Erro ao atualizar: ${error.message}`);
     }
   }
 
