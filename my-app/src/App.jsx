@@ -8,6 +8,9 @@ import TableComponent from "./components/TableComponent";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
+  console.log("🚀 API Base URL:", API_BASE_URL);
+  console.log("📤 Enviando para:", `${API_BASE_URL}/api/submit`);
+
   const openGraphModal = async () => {
     await fetchData(); // Primeiro, obtém os dados do backend
     setTimeout(() => {
