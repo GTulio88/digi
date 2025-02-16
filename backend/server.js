@@ -140,6 +140,9 @@ app.delete("/api/delete/:clientId", async (req, res) => {
     res.status(500).json({ message: "Erro ao excluir registro." });
   }
 });
-
+// Se nenhuma rota for encontrada, retorna erro 404 para evitar que o frontend seja servido
+app.use((req, res, next) => {
+  res.status(404).json({ message: "❌ Rota não encontrada." });
+});
 // Iniciar o servidor
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
