@@ -5,20 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import Chart from "chart.js/auto";
 import TableComponent from "./components/TableComponent";
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:5000";
-const mongoose = require("mongoose");
-require("dotenv").config(); // Para usar variáveis de ambiente
-
-const mongoURI = process.env.MONGO_URI;
-
-mongoose
-  .connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("MongoDB conectado"))
-  .catch((err) => console.error("Erro ao conectar ao MongoDB:", err));
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function App() {
   const openGraphModal = async () => {
